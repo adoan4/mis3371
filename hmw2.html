@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 1.39
+Version: 2.01
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -29,25 +29,43 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
     <div id="main">
       <form action="thankyouhmw1.html">
         <table>
-                    
+
+  <!---------- login ----------->          
+          <tr class="sectionHead"><td colspan="4">Login Credentials</td>
+          </tr>
+          
           <tr>
             <td>User ID:</td>
-            <td>
-              <input type="text" maxlength="20" placeholder="ID Input" required>
+            <td colspan="3">
+              <input type="text" minlength="5" maxlength="30" placeholder="ID Input" 
+                pattern="[a-zA-Z][a-zA-z0-9_\-]{4,29}
+                oninput="validateUserID()"
+                title="5-30 characters. Must start with a letter. Only letters, numbers, underscore, or dash. No spaces."
+                required>
+              <span class="errMsg" id="useridErr"></span>
             </td>
           </tr>
 
           <tr>
             <td>Password:</td>
             <td>
-                <input type="password" maxlength="20" placeholder="Password Input" required>
+                <input type="password" id="password" name="password" minlength="8" maxlength="30" placeholder="Password Input" 
+                  title="8-30 characters. Must include 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character. Cannot contain name or User ID."
+                  oninput="validatePassword(); validateConfirmPassword()"
+                  required>
+              <span class="errMesg" id="passwordErr"></span>
             </td>
             <td>Confirm Password:</td>
             <td>
-                <input type="password" maxlength="20" placeholder="Confirm Password" required>
+                <input type="password" name="confirmpassword" id="confirmpassword" minlength="8" maxlength="30" placeholder="Re-enter Password" 
+                  title="Re-enter password exactly as above."
+                  oninput="validateConfirmPassword()"
+                  required>
+              <span class="errMsg" id="confirmpasswordErr"></span>
             </td>
           </tr>
-          
+
+<!---------- Personal Info ---------->         
           <tr>
             <td>Full Name:</td>
               <td>
