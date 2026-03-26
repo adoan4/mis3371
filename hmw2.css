@@ -2,29 +2,34 @@
 Name: Alison Doan
 File: hmw2.css
 Date Created: 03/03/2026
-Date Updated: 02/26/2027
-Version: 1.01
+Date Updated: 03/26/2027
+Version: 1.02
 Purpose: Style sheet for hmw2.html
 */
 body 
 {
   background-color: #f8f4ff;
   font-family: "Georgia", serif;
+  color: #231f30;
 }
 
 #header 
 {
   text-align: center;
-  background-color:#5b479a;
+  background-color:linear-gradient(135deg, #5b479a 0%, #3d2f75 100%);
   font-family: "Rockwell", serif;
   color: #f8f4ff;
-  padding: 20px;
+  padding: 28px 20px 22px;
 }
+
+#header h1 { font-size: 2rem; letter-spacing: 2px; margin: 8px 0 4px; }
+#header h3 { font-size: 1rem; font-weight: normal; letter-spacing: 1px; opacity: .85; }
+#header p  { font-size: .85rem; margin-top: 8px; opacity: .75; }
 
 .logo 
 {
   width: 80px;
-  height:auto;
+  height: auto;
   margin:0 auto;
 }
 
@@ -34,7 +39,7 @@ table
   font-family: "Georgia", serif;
   color: #231f30;
   background-color: rgb(165,133,201);
-  padding: 15px;
+  padding: 20px 24px;
 }
 
 th
