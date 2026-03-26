@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 2.01
+Version: 2.02
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -15,6 +15,7 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
   </head>
   
   <body>
+    
     <!----------- header ------------->
     <div id="header">
       <img src="soreal-logo.png" alt="Medical Logo" class="logo">
@@ -38,8 +39,8 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
             <td>User ID:</td>
             <td colspan="3">
               <input type="text" minlength="5" maxlength="30" placeholder="ID Input" 
-                pattern="[a-zA-Z][a-zA-z0-9_\-]{4,29}
-                oninput="validateUserID()"
+                pattern="[a-zA-Z][a-zA-z0-9_\-]{4,29}"
+                oninput="validateUserID()" 
                 title="5-30 characters. Must start with a letter. Only letters, numbers, underscore, or dash. No spaces."
                 required>
               <span class="errMsg" id="useridErr"></span>
@@ -66,46 +67,67 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           </tr>
 
 <!---------- Personal Info ---------->         
+          <tr class="sectionHead"><td colspan="4">Personal Information</td></tr> 
+         
           <tr>
             <td>Full Name:</td>
               <td>
-                <input type="text" name="firstname" placeholder="First Name" maxlength="30" required>
+                <input type="text" name="firstname" id="firstname"
+                  placeholder="First Name" maxlength="30" required
+                  title="1–30 characters. Letters, apostrophes, and dashes only"
+                  pattern="[A-Za-z'\-]{1,30}" oninput="validatedFirstName" required>
+                <span class="errMesg+ id="firstnameErr"></span>
               </td>
 
             <td>
-                <input type="text" name="middleinitial" placeholder="Middle Initial" maxlength="1" required>
+                <input type="text" name="mi" id="mi" placeholder="MI" maxlength="1" 
+                  class="short" title="Middle Initial- one letter only, or blank"
+                  pattern=[A-Za-z] oninput="validatedMI()"> 
+              <span class="errMsg" id="miErr"></span>
             </td>
             
               <td>
-                <input type="text" name="lastname" placeholder="Last Name" maxlength="30" required>
+                <input type="text" name="lastname" id="lastname" placeholder="Last Name" 
+                  maxlength="30" title="1–30 characters. Letters, apostrophes, dashes, and numbers 2–5"
+                  pattern="[A-Za-z'\-2-5]{1,30}" oninput="validateLastName()" required>
+                <span class="errMsg" id="lastnameErr"></span>
               </td>
           </tr>
 
            <tr>
             <td>Gender:</td>
-            <td colspan="2" style="text-align: left;">
-              <input type="radio" name="gender"value="female">Female
-              <input type="radio" name="gender"value="male">Male
-              <input type="radio" name="gender"value="other">Other
+            <td colspan="3" style="text-align: left;">
+              <input type="radio" name="gender"value="female"
+              title="Select your gender identity."> Female &nbsp;
+              <input type="radio" name="gender"value="male"
+              title="Select your gender identity."> Male &nbsp;
+              <input type="radio" name="gender"value="other"
+              title="Select your gender identity."> Other &nbsp;
             </td>
           </tr>
           
           <tr>
           <td>Date of Birth:</td>
             <td>
-                <input type="text" pattern="\d{2}/\d{2}/\d{4}" placeholder="MM/DD/YYYY" required>
+                <input type="text" id="dob" name="dob" pattern="\d{2}/\d{2}/\d{4}" placeholder="MM/DD/YYYY" 
+                  title="Enter your date of birth. Cannot be in future or more then 120 years ago"
+                  required>
+              <span class="errMsg" id="dobErr"></span>
             </td>
             
             <td>Social Security:</td>
             <td>
-              <input type="password" maxlength="11" placeholder="123456789" required>
+              <input type="password" name="ssn" id="ssn" maxlength="11" placeholder="123-45-6789" 
+                title="Enter your Social Security Number. Format: 123-45-6789."
+            pattern="\d{3}-?\d{2}-?\d{4}" required>
+              <span class="errMsg" id="ssnErr"></span>
             </td>
           </tr>
 
           <tr>
             <td>Address Line 1:</td>
             <td>
-              <input type="text" maxlength="30" placeholder="123 Any Ln" required>
+              <input type="text" name="ssn" id="ssn" maxlength="30" placeholder="123 Any Ln" required>
             </td>
             <td>Address Line 2:</td>
             <td>
