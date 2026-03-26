@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 2.03
+Version: 2.04
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -130,11 +130,13 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           <tr>
             <td>Address Line 1:</td>
             <td>
-              <input type="text" name="ssn" id="ssn" maxlength="30" placeholder="123 Any Ln" required>
+              <input type="text" name="addr1" id="addr1" minlength="2" maxlength="30" placeholder="123 Main Ln" 
+                title="Enter your street address" pattern=".{2,30}" required>
             </td>
             <td>Address Line 2:</td>
             <td>
-              <input type="text" maxlength="30" placeholder="Apt #">
+              <input type="text" name="addr2" id="addr2" minlength="2" maxlength="30" placeholder="Apt #, Suite"
+                title="Optional address" pattern=".{2,30}">
             </td>
           </tr>
           
@@ -142,11 +144,13 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
             <td>City, State, Zip:</td>
             
             <td>
-              <input type="text" maxlength="30" placeholder="City" required>
+              <input type="text" name="city" id="city" minlength="2" maxlength="30" placeholder="City" 
+                title="Enter your city name" pattern=".{2,30}" required>
             </td>
             
             <td>
-                <select name="state" required>
+                <select name="state" name="state" id="state" 
+                  title="Select your state from the dropdown" required>
                   <option value=""disabled selected>Select State</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -203,7 +207,10 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
             </td>
             
             <td>
-              <input type="text" pattern="\d{5,10}" placeholder="123456" required>
+              <input type="text" name="zip" id="zip" maxlength="10" pattern="\d{5,10}" placeholder="123456" 
+                title="Enter your 5-digit ZIP code or ZIP+4 format" pattern="\d{5}(-\d{4})?"
+                oninput="validateZIP()" required>
+          <span class="errMsg" id="zipErr"></span>
             </td>
           </tr>
 
@@ -213,12 +220,16 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           <tr>
             <td>Email:</td>
             <td>
-              <input type="email" placeholder="email@domain.com" required>
+              <input type="email" name="email" id="email" placeholder="email@domain.com" required
+                title="Enter a valid email address" oninput="validateEmail()">
+          <span class="errMsg" id="emailErr"></span>
             </td>
 
             <td>Phone #:</td>
             <td>
-            <input type="text" pattern="\d{3}-\d{3}-\d{4}" placeholder="123-456-7890">
+            <input type="text" name="phone" id="phone" pattern="\d{3}-\d{3}-\d{4}" 
+              placeholder="123-456-7890" oninput=validatePhone()>
+          <span class="errMsg" id="phoneErr"></span>
             </td>
           </tr>
 
@@ -280,6 +291,10 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
     </div>
     <hr>
 
+<!------------ review ------------->
+
+
+    
 <!------------ footer ------------->
     <div id="footer">
       <p>SoReal Medical | Please do not contact or come | Houston, TX 77070</p>
@@ -288,9 +303,12 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
       </button>
     </div>
 
-<script>
-  document.getElementById("today").innerHTML = "Today is: " + new Date().toLocaleDateString();
-</script>
+
+<!------------ js ------------->
+    <script src="hmw2.js"></script>
+    <script>
+      document.getElementById("today").innerHTML = "Today is: " + new Date().toLocaleDateString();
+    </script>
     
   </body>
 </html>
