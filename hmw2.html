@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 2.04
+Version: 2.05
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -253,21 +253,34 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           <tr>
             <td>Symptoms Occuring:</td>
             <td>
-              <input type="checkbox" name="symptom"> Fever<br>
-              <input type="checkbox" name="symptom"> Headache<br>
-              <input type="checkbox" name="symptom"> Vomiting<br>
+              <label><input type="checkbox" name="symptom" value="Fever"
+                       title="Check if you currently have a fever."> Fever</label><br>
+              <label><input type="checkbox" name="symptom" value="Headache"
+                       title="Check if you are experiencing headaches."> Headache</label><br>
+              <label><input type="checkbox" name="symptom" value="Vomiting"
+                       title="Check if you are experiencing nausea or vomiting."> Vomiting</label>
+              <label><input type="checkbox" name="symptom" value="Fatigue"
+                       title="Check if you are experiencing fatigue"> Fatigue</label>
             </td>
             <td>
-              <input type="checkbox" name="symptom"> Heartburn<br>
-              <input type="checkbox" name="symptom"> Rash<br>
-              <input type="checkbox" name="symptom"> Sore Throat<br>
-            </td>
+
+              <label><input type="checkbox" name="symptom" value="Heartburn"
+                       title="Check if you are experiencing heartburn or acid reflux."> Heartburn</label><br>
+              <label><input type="checkbox" name="symptom" value="Rash"
+                       title="Check if you have a visible rash or skin irritation."> Rash</label><br>
+              <label><input type="checkbox" name="symptom" value="Sore Throat"
+                       title="Check if you have a sore or irritated throat."> Sore Throat</label>
+              <label><input type="checkbox" name="symptom" value="Chest Pain"
+                       title="Check if you are experiencing chest pain."> Chest Pain</label>
+        </td>
           </tr>
           
            <tr>
             <td>Describe symptoms in detail:</td>
             <td colspan="3" style="text-align: left;">
-              <textarea name="symptoms" rows="3" cols="50" placeholder="Explain your current health symptoms in detail."></textarea>
+              <textarea name="sympdetails" id="sympdetails" rows="4" cols="55" 
+                placeholder="Explain your current health symptoms in detail." 
+                title="Optional. Please describe your symptoms" pattern='[^"]*'></textarea>
             </td>
           </tr>
 
