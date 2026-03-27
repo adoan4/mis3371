@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 2.05
+Version: 2.06
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -259,20 +259,21 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
                        title="Check if you are experiencing headaches."> Headache</label><br>
               <label><input type="checkbox" name="symptom" value="Vomiting"
                        title="Check if you are experiencing nausea or vomiting."> Vomiting</label>
-              <label><input type="checkbox" name="symptom" value="Fatigue"
-                       title="Check if you are experiencing fatigue"> Fatigue</label>
             </td>
             <td>
-
               <label><input type="checkbox" name="symptom" value="Heartburn"
                        title="Check if you are experiencing heartburn or acid reflux."> Heartburn</label><br>
               <label><input type="checkbox" name="symptom" value="Rash"
                        title="Check if you have a visible rash or skin irritation."> Rash</label><br>
               <label><input type="checkbox" name="symptom" value="Sore Throat"
                        title="Check if you have a sore or irritated throat."> Sore Throat</label>
+        </td>
               <label><input type="checkbox" name="symptom" value="Chest Pain"
                        title="Check if you are experiencing chest pain."> Chest Pain</label>
-        </td>
+              <label><input type="checkbox" name="symptom" value="Fatigue"
+                       title="Check if you are experiencing fatigue"> Fatigue</label>    
+            <label><input type="checkbox" name="symptom" value="Unusual Bleeding"
+                       title="Check if you have unusual bleeding"> Unusual Bleeding</label>
           </tr>
           
            <tr>
@@ -287,16 +288,22 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           <tr>
             <td>Do you have insurance?</td>
             <td>
-              <input type="radio" name="insurance">Yes
-              <input type="radio" name="insurance">No
+              <input type="radio" name="insurance"
+                title="Select Yes if you have active health insurance coverage."> Yes &nbsp;
+              <input type="radio" name="insurance"No
+                title="Select No  if you do not have active health insurance coverage."> No &nbsp;
             </td>
           </tr>
 
+<!------------ buttons ------------->
+          
           <tr>
             <td colspan="4" style="text-align: center;">
-              <input type="reset" name="resetbutton" value="Clear and Restart">
+              <input type="button" name="reviewbutton" value="Review" onclick="buildReview()">
+              <input type="reset" name="resetbutton" value="Clear and Restart"
+                onclick="document.getElementById('reviewPanel').style.display='none'">
               <input type="submit" name="submitbutton" value="Submit Form">
-                </td>
+            </td>
           </tr>
           
         </table>
