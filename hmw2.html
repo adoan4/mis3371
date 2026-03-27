@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw2.html
 Date created: 03/03/2026
 Date updated: 03/27/2026
-Version: 2.09
+Version: 2.10
 Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 -->
 <html lang="en">
@@ -244,9 +244,12 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
 <!---------- Health Symptoms ---------->         
           <tr class="sectionHead"><td colspan="4">★ Health Symptoms</td></tr> 
           <tr>
-            <td>How are you feeling now? (1-10)</td>
+            <td>How are you feeling? (1-10)</td>
             <td colspan="3" style="text-align: left;">
-              <input type="range" name="health" min="1" max="10">
+              <input type="range" name="health" id="health" min="1" max="10"
+                title="Slide to rate your current health from 1 (very poor) to 10 (excellent)."
+                oninput="updateSlider(this.value)">
+              <span id="healthDisplay">5/10</span>
             </td>
           </tr>
           
