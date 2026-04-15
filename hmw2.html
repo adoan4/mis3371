@@ -38,7 +38,7 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
           <tr>
             <td>User ID:</td>
             <td colspan="3">
-              <input type="text" minlength="5" maxlength="30" placeholder="ID Input" 
+              <input type="text" minlength="5" maxlength="30" id="userid" placeholder="ID Input" 
                 pattern="[a-zA-Z][a-zA-z0-9_\-]{4,29}"
                 oninput="validateUserID()" 
                 title="5-30 characters. Must start with a letter. Only letters, numbers, underscore, or dash. No spaces."
@@ -54,7 +54,7 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
                   title="8-30 characters. Must include 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character. Cannot contain name or User ID."
                   oninput="validatePassword(); validateConfirmPassword()"
                   required>
-              <span class="errMesg" id="passwordErr"></span>
+              <span class="errMsg" id="passwordErr"></span>
             </td>
             <td>Confirm Password:</td>
             <td>
@@ -75,14 +75,14 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
                 <input type="text" name="firstname" id="firstname"
                   placeholder="First Name" maxlength="30" required
                   title="1–30 characters. Letters, apostrophes, and dashes only"
-                  pattern="[A-Za-z'\-]{1,30}" oninput="validateFirstName" required>
+                  pattern="[A-Za-z'\-]{1,30}" oninput="validateFirstName()" required>
                 <span class="errMesg+ id="firstnameErr"></span>
               </td>
 
             <td>
                 <input type="text" name="mi" id="mi" placeholder="MI" maxlength="1" 
                   class="short" title="Middle Initial- one letter only, or blank"
-                  pattern=[A-Za-z] oninput="validatedMI()"> 
+                  pattern=[A-Za-z] oninput="validateMI()"> 
               <span class="errMsg" id="miErr"></span>
             </td>
             
