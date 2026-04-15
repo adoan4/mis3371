@@ -75,7 +75,7 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
                 <input type="text" name="firstname" id="firstname"
                   placeholder="First Name" maxlength="30" required
                   title="1–30 characters. Letters, apostrophes, and dashes only"
-                  pattern="[A-Za-z'\-]{1,30}" oninput="validatedFirstName" required>
+                  pattern="[A-Za-z'\-]{1,30}" oninput="validateFirstName" required>
                 <span class="errMesg+ id="firstnameErr"></span>
               </td>
 
@@ -209,7 +209,7 @@ Purpose: MIS 3371 Homework 2 demonstrating HTML form elements and CSS styling.
             <td>
               <input type="text" name="zip" id="zip" maxlength="10" pattern="\d{5,10}" placeholder="123456" 
                 title="Enter your 5-digit ZIP code or ZIP+4 format" pattern="\d{5}(-\d{4})?"
-                oninput="validateZIP()" required>
+                oninput="validateZip()" required>
           <span class="errMsg" id="zipErr"></span>
             </td>
           </tr>
