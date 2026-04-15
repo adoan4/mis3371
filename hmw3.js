@@ -3,7 +3,7 @@
   File: hmw2.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.00
+  Version: 3.02
   Purpose: External JavaScript for hmw2.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -239,7 +239,7 @@ function buildReview() {
  
 
   const html = `
-    <h2>Please Review This Information</h2>
+    <h2>★ Please Review This Information</h2>
     <table class="reviewTable">
       <thead>
         <tr><th>Field</th><th>Value</th><th>Status</th></tr>
@@ -292,7 +292,7 @@ function buildReview() {
         </tr>
         <tr>
           <td>Symptoms Checked</td>
-          <td>${symptoms.length > 0 ? symptoms.join(", ") : "None selected"}</td>
+          <td>${symptoms.length > 0 ? symptoms.join(", ") : "(none selected)"}</td>
           <td><span class="ok">✔ pass</span></td>
         </tr>
         <tr>
