@@ -1,0 +1,94 @@
+/*
+Name: Alison Doan
+File: hmw2.css
+Date Created: 04/01/2026
+Date Updated: 04/15/2027
+Version: 2.01
+Purpose: Style sheet for hmw2.html
+*/
+body 
+{
+  background-color: #f8f4ff;
+  font-family: "Georgia", serif;
+  color: #231f30;
+}
+
+#header 
+{
+  text-align: center;
+  background-color: #5b479a;
+  font-family: "Rockwell", serif;
+  color: #f8f4ff;
+  padding: 28px 20px 22px;
+}
+
+#header h1 { font-size: 2rem; letter-spacing: 2px; margin: 8px 0 4px; }
+#header h3 { font-size: 1rem; font-weight: normal; letter-spacing: 1px; opacity: .85; }
+#header p  { font-size: .85rem; margin-top: 8px; opacity: .75; }
+
+.logo 
+{
+  width: 80px;
+  height: auto;
+  margin:0 auto;
+}
+
+table
+{
+  margin: auto;
+  font-family: "Georgia", serif;
+  color: #231f30;
+  background-color: rgb(165,133,201);
+  padding: 20px 24px;
+}
+
+th
+{
+  color: #786b9e;
+  font-family: "Rockwell", serif;
+  margin: auto;
+  padding: 10px;
+}
+
+#footer 
+{
+  text-align: center;
+  font-family: "Georgia", serif;
+  color: #f8f4ff;
+  background-color: #5b479a;
+  padding: 10px;
+}
+
+.slider
+{
+  width:100%;
+}
+
+input[name="submitbutton"]
+{
+  background-color: #2e2257;
+  color: white;
+}
+
+input[name="resetbutton"]
+{
+  background-color: #2e2257;
+  color: white;
+}
+
+input[name="reviewbutton"]
+{
+  background-color: #2e2257;
+  color: white;
+}
+
+
+a:visited
+{
+  color: blue;
+}
+
+a:hover
+{
+  color: purple;
+}
