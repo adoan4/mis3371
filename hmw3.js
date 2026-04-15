@@ -3,7 +3,7 @@
   File: hmw2.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.02
+  Version: 3.03
   Purpose: External JavaScript for hmw2.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -247,7 +247,8 @@ function buildReview() {
       <tbody>
         <tr>
           <td>Full Name</td>
-          <td>${firstname} ${mi ? mi + "." : ""} ${lastname}</td>
+          <td>${(firstname || lastname)
+                ? '${firstname} ${mi ? mi + "." : ""} ${lastname}'.trim() : "(none)"} </td>
           <td>${fieldStatus(firstname && lastname)}</td>
         </tr>
         <tr>
