@@ -3,9 +3,9 @@
 Name: Alison Doan
 File: hmw3.html
 Date created: 04/01/2026
-Date updated: 04/17/2026
-Version: 3.02
-Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
+Date updated: 04/20/2026
+Version: 3.03
+Purpose: MIS 3371 Homework 3 demonstrating JavaScript real-time form validation.
 -->
 <html lang="en">
   <head>
@@ -13,7 +13,7 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
     <title>Ali's Hmw 3- SoReal Medical Form</title>
     <link rel="stylesheet" href="hmw3.css">
   </head>
-  
+
   <body>
     
     <!----------- header ------------->
@@ -28,7 +28,7 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
 
     <!---------- main ----------->
     <div id="main">
-      <form action="tyhmw3.html">
+      <form action="tyhmw3.html" id="patientForm" onsubmit="return finalSubmitCheck()">
         <table>
 
   <!---------- login ----------->          
@@ -36,7 +36,7 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
           </tr>
           
           <tr>
-            <td>User ID:</td>
+            <td class="labelCell">User ID:</td>
             <td colspan="3">
               <input type="text" minlength="5" maxlength="30" id="userid" placeholder="ID Input" 
                 pattern="[a-zA-Z][a-zA-z0-9_\-]{4,29}"
@@ -48,7 +48,7 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
           </tr>
 
           <tr>
-            <td>Password:</td>
+            <td class="labelCell">Password:</td>
             <td>
                 <input type="password" id="password" name="password" minlength="8" maxlength="30" placeholder="Password Input" 
                   title="8-30 characters. Must include 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character. Cannot contain name or User ID."
@@ -70,12 +70,14 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
           <tr class="sectionHead"><td colspan="4">★ Personal Information ★</td></tr> 
          
           <tr>
-            <td>Full Name:</td>
+            <td class="labelCell">Full Name:</td>
               <td>
                 <input type="text" name="firstname" id="firstname"
                   placeholder="First Name" maxlength="30" required
-                  title="1–30 characters. Letters, apostrophes, and dashes only"
-                  pattern="[A-Za-z'\-]{1,30}" oninput="validateFirstName()" required>
+                  title="1–30 characters. Letters, apostrophes, and dashes only."
+                  pattern="[A-Za-z'\-]{1,30}" oninput="validateFirstName()"
+                  onblur="validateFirstName()"
+                  required>
                 <span class="errMesg+ id="firstnameErr"></span>
               </td>
 
@@ -89,29 +91,36 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
               <td>
                 <input type="text" name="lastname" id="lastname" placeholder="Last Name" 
                   maxlength="30" title="1–30 characters. Letters, apostrophes, dashes, and numbers 2–5"
-                  pattern="[A-Za-z'\-2-5]{1,30}" oninput="validateLastName()" required>
+                  pattern="[A-Za-z'\-2-5]{1,30}" oninput="validateLastName()" 
+                  onblur="validateLastName()"
+                  required>
                 <span class="errMsg" id="lastnameErr"></span>
               </td>
           </tr>
 
            <tr>
-            <td>Gender:</td>
+            <td class="labelCell">Gender:</td>
             <td colspan="3" style="text-align: left;">
               <input type="radio" name="gender"value="female"
-              title="Select your gender identity."> Female &nbsp;
+              title="Select your gender identity."
+                onchange="validateGender()"> Female &nbsp;
               <input type="radio" name="gender"value="male"
-              title="Select your gender identity."> Male &nbsp;
+              title="Select your gender identity."
+                onchange="validateGender()"> Male &nbsp;
               <input type="radio" name="gender"value="other"
-              title="Select your gender identity."> Other &nbsp;
+              title="Select your gender identity."
+                onchange="validateGender()"> Other &nbsp;
+              <span class="errMsg" id="genderErr"></span>
             </td>
           </tr>
           
           <tr>
-          <td>Date of Birth:</td>
+          <td class="labelCell">Date of Birth:</td>
             <td>
                 <input type="text" id="dob" name="dob" pattern="\d{2}/\d{2}/\d{4}" placeholder="MM/DD/YYYY" 
                   title="Enter your date of birth. Cannot be in future or more then 120 years ago"
-                  required>
+                  oninput="validateDOB()"
+                  onblur="validateDOB()" required>
               <span class="errMsg" id="dobErr"></span>
             </td>
             
@@ -119,7 +128,9 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
             <td>
               <input type="password" name="ssn" id="ssn" maxlength="11" placeholder="123-45-6789" 
                 title="Enter your Social Security Number. Format: 123-45-6789."
-            pattern="\d{3}-?\d{2}-?\d{4}" required>
+            pattern="\d{3}-?\d{2}-?\d{4}" 
+                oninput="validateSSN()"
+                onblur="validateSSN()" required>
               <span class="errMsg" id="ssnErr"></span>
             </td>
           </tr>
@@ -128,29 +139,41 @@ Purpose: MIS 3371 Homework 3 demonstrating HTML form elements and CSS styling.
           <tr class="sectionHead"><td colspan="4">★ Address Information ★</td></tr> 
 
           <tr>
-            <td>Address Line 1:</td>
+            <td class="labelCell">Address Line 1:</td>
             <td>
               <input type="text" name="addr1" id="addr1" minlength="2" maxlength="30" placeholder="123 Main Ln" 
-                title="Enter your street address" pattern=".{2,30}" required>
+                title="Enter your street address" pattern=".{2,30}" 
+                oninput="validateAddr1()"
+                onblur="validateAddr1()"
+                required>
+              <span class="errMsg" id="addr1Err"></span>
             </td>
-            <td>Address Line 2:</td>
+            <td class="labelCell">Address Line 2:</td>
             <td>
               <input type="text" name="addr2" id="addr2" minlength="2" maxlength="30" placeholder="Apt #, Suite"
-                title="Optional address" pattern=".{2,30}">
+                title="Optional address" pattern=".{2,30}"
+                oninput="validateAddr2()"
+                onblur="validateAddr2()">
+              <span class="errMsg" id="addr2Err"></span>
             </td>
           </tr>
           
           <tr>
-            <td>City, State, Zip:</td>
+            <td class="labelCell">City, State, Zip:</td>
             
             <td>
               <input type="text" name="city" id="city" minlength="2" maxlength="30" placeholder="City" 
-                title="Enter your city name" pattern=".{2,30}" required>
+                title="Enter your city name" pattern=".{2,30}" 
+                oninput="validateCity()"
+                onblur="validateCity()"
+                required>
+              <span class="errMsg" id="cityErr"></span>
             </td>
             
             <td>
                 <select name="state" id="state" 
-                  title="Select your state from the dropdown" required>
+                  title="Select your state from the dropdown" 
+                  onchange="validateState()" required>
                   <option value=""disabled selected>Select State</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
