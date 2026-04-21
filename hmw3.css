@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw2.css
 Date Created: 04/01/2026
 Date Updated: 04/15/2027
-Version: 3.02
+Version: 3.03
 Purpose: Style sheet for hmw2.html
 */
 body 
@@ -115,6 +115,12 @@ input[name="resetbutton"]
 }
 
 input[name="reviewbutton"]
+{
+  background-color: #2e2257;
+  color: white;
+}
+
+input[name="validatebutton"]
 {
   background-color: #2e2257;
   color: white;
