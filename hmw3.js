@@ -3,18 +3,23 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.04
+  Version: 3.06
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
 function setTodayDate() {
   const today = new Date();
-  document.getElementById("today").innerHTML =
-    "Today is: " + today.toLocaleDateString("en-US", { 
+    const formattedDate = today.toLocaleDateString("en-US", { 
       weekday: "long", year: "numeric", month: "long", day: "numeric" 
     });
+  const displayElement = document.getElementById("today");
+  if (displayElement) {
+    displayElement.innerHTML = "Today is: " + formattedDate;
+  } 
+  else {
+    console.error("Could not find an element with id='today'");
+  }
 }
- 
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
 function updateSlider(val) {
   document.getElementById("healthDisplay").textContent = val + " / 10";
@@ -43,7 +48,7 @@ function clearMsg(fieldId) {
   }
 }
 function showSubmit() {
-  document.getElementById("submitbutton".style.display = "none";
+  document.getElementById("submitbutton".style.display = "none");
 }
 
 // ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
