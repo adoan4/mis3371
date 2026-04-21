@@ -5,8 +5,8 @@ Program name: tyhmw3.html
 Author: Alison Doan
 Date created: 04/01/2026
 Date last edited: 04/17/2026
-Version: 2.00
-Description: Submission page for hmw2.html
+Version: 3.01
+Description: Submission page for hmw3.html
 -->
 
 <html lang="en">
@@ -18,14 +18,30 @@ Description: Submission page for hmw2.html
 
   <body>
 
-    <div id="header">
+    <div id="thankYouBox">
       <h1>SoReal Medical</h1>
-      <h3>Thank You for your Submission.</h3>
+      <h2>Thank You for your Submission.</h2>
+      <p>
+        We have received your patient registration information. <br>
+        <strong>We will be contacting you shortly.</strong>
+      </p>
+      <p id="submittedDate"></p>
+    <a href="hmw2.html" class="returnLink">← Return to Registration Form</a>
+  </div>
 
       <a href="hmw2.html">
         <button>Return to Form</button>
     </a>
       
     </div>
+
+    <script>
+    const now = new Date();
+    document.getElementById("submittedDate").textContent =
+      "Submitted on: " + now.toLocaleDateString("en-US", {
+        weekday: "long", year: "numeric", month: "long", day: "numeric"
+      }) + " at " + now.toLocaleTimeString("en-US");
+  </script>    
+
   </body>
 </html>
