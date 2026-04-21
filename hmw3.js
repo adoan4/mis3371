@@ -3,20 +3,16 @@
   File: hmw2.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.03
+  Version: 3.04
   Purpose: External JavaScript for hmw2.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
 function setTodayDate() {
   const today = new Date();
   document.getElementById("today").innerHTML =
-    "Today is: " + today.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
- 
-  const maxDOB = today.toISOString().split("T")[0];
-  const minDOB = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate())
-    .toISOString().split("T")[0];
-  document.getElementById("dob").setAttribute("max", maxDOB);
-  document.getElementById("dob").setAttribute("min", minDOB);
+    "Today is: " + today.toLocaleDateString("en-US", { 
+      weekday: "long", year: "numeric", month: "long", day: "numeric" 
+    });
 }
  
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
@@ -27,47 +23,92 @@ function updateSlider(val) {
 // ─── LIVE FIELD VALIDATION ────────────────────────────────────────────────────
 function showError(fieldId, msg) {
   const el = document.getElementById(fieldId + "Err");
-  if (el) el.textContent = msg;
+  if (el) {
+    el.textContent = msg;
+    el.className = "errMsg isError";
+  }
 }
-function clearError(fieldId) {
+function showOK(fieldId) {
   const el = document.getElementById(fieldId + "Err");
-  if (el) el.textContent = "";
+  if (el) {
+    el.textContent = "✓"
+    el.className = "errMsg isOK";
+  }
 }
- 
+function clearMsg(fieldId) {
+  const el = document.getElementById(fieldId + "Err");
+  if (el) {
+    el.textContent = ""
+    el.className = "errMsg";
+  }
+}
+function showSubmit() {
+  document.getElementById("submitbutton".style.display = "none";
+}
+
+// ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
 function validateFirstName() {
   const val = document.getElementById("firstname").value;
+  if(!val){
+    showError("firstname", "First name is required.");
+    return false;
+  }
   if (!/^[A-Za-z'\-]{1,30}$/.test(val)) {
     showError("firstname", "1–30 letters, apostrophes, or dashes only.");
     return false;
   }
-  clearError("firstname"); return true;
+  showOK("firstname"); 
+  return true;
 }
  
 function validateMI() {
   const val = document.getElementById("mi").value;
+  if (val == "") {clearMsg("mi"); return true;}
   if (val !== "" && !/^[A-Za-z]$/.test(val)) {
     showError("mi", "One letter only, or leave blank.");
     return false;
   }
-  clearError("mi"); return true;
+  showOK("mi"); 
+  return true;
 }
  
 function validateLastName() {
   const val = document.getElementById("lastname").value;
+  if (!val) {
+    showError("lastname", "Last name is required.");
+    return false;
+  }
   if (!/^[A-Za-z'\-2-5]{1,30}$/.test(val)) {
     showError("lastname", "1–30 chars: letters, apostrophes, dashes, or numbers 2–5.");
     return false;
   }
-  clearError("lastname"); return true;
+  showOK("lastname"); 
+  return true;
+}
+
+function validateGender() {
+  const sel= document.querySelector('input[name="gender"]:checked');
+  if(!sel) {
+    showError("gender", "Please select a gender.");
+    return false;
+  }
+  showOK("gender");
+  return true;
 }
  
 function validateEmail() {
-  const val = document.getElementById("email").value;
+  const field = document.getElementById("email");
+  field.value = field.value.toLowerCase();  
+  const val = field.value.trim();
+  if(!val) {
+    showError("email", "Email address is required.");
+    return false;
+}
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
     showError("email", "Enter a valid email: name@domain.tld");
     return false;
   }
-  clearError("email"); return true;
+  showOK("email"); return true;
 }
  
 function validatePhone() {
@@ -76,37 +117,76 @@ function validatePhone() {
     showError("phone", "Format: 000-000-0000");
     return false;
   }
-  clearError("phone"); return true;
+  showOK("phone"); return true;
 }
+
+function validateState() {
+  const val = document.getElementById("state").value;
  
+  if (!val) {
+    showError("state", "Please select a state.");
+    return false;
+  }
+  showOK("state");
+  return true;
+}
+
+function validateCity() {
+  const val = document.getElementById("city").value.trim();
+ 
+  if (!val) {
+    showError("city", "City is required.");
+    return false;
+  }
+  if (!/^[A-Za-z\s'\-\.]{2,30}$/.test(val)) {
+    showError("city", "2–30 characters: letters, spaces, apostrophes, or dashes.");
+    return false;
+  }
+  showOK("city");
+  return true;
+}
+
 function validateZip() {
   const val = document.getElementById("zip").value;
+  if(!val) {
+    showError("zip", "ZIP code is required.");
+    return false;
+  }
   if (!/^\d{5}(-\d{4})?$/.test(val)) {
     showError("zip", "Enter 5 digits, or ZIP+4 like 77002-1234.");
     return false;
   }
-  clearError("zip"); return true;
+  showOK("zip"); 
+  return true;
 }
  
 function validateUserID() {
   const field = document.getElementById("userid");
-  let val = field.value;
-  
-  field.value = val.toLowerCase();
-  val = field.value;
-  if (!/^[a-z][a-z0-9_\-]{4,29}$/.test(val)) {
-    showError("userid", "5–30 chars: start with a letter, then letters/numbers/_/- only. No spaces.");
+  field.value = field.value.toLowerCase();
+  const val = field.value;
+  if (!val) {
+    showError("userid", "User ID is required.");
     return false;
   }
-  clearError("userid"); return true;
+  if (!/^[a-z][a-z0-9_\-]{4,29}$/.test(val)) {
+    showError("userid", "5-30 chars. Start with letter; only lowercase letters, numbers, _ or -. No spaces.");
+    return false;
+  }
+  showOK("userid");
+  return true;
 }
- 
+
 function validatePassword() {
   const pw = document.getElementById("password").value;
-  const userid = document.getElementById("userid").value.toLowerCase();
-  const firstname = document.getElementById("firstname").value.toLowerCase();
-  const lastname = document.getElementById("lastname").value.toLowerCase();
+  const userid = (document.getElementById("userid").value     || "").toLowerCase();
+  const firstname = (document.getElementById("firstname").value     || "").toLowerCase();
+  const lastname = (document.getElementById("lastname").value     || "").toLowerCase();
  
+
+  if (!pw) {
+    showError("password", "Password is required.");
+    return false;
+  }
   if (pw.length < 8 || pw.length > 30) {
     showError("password", "Password must be 8–30 characters.");
     return false;
@@ -143,19 +223,152 @@ function validatePassword() {
     showError("password", "Password cannot contain your last name.");
     return false;
   }
-  clearError("password"); return true;
+  showOK("password");
+  return true;
 }
  
 function validateConfirmPassword() {
   const pw = document.getElementById("password").value;
   const cpw = document.getElementById("confirmpassword").value;
+  
+  if(!cpw){
+    showError("confirmpassword", "Please confirm your password.");
+    return false;
+  }
   if (pw !== cpw) {
     showError("confirmpassword", "Passwords do not match.");
     return false;
   }
-  clearError("confirmpassword"); return true;
+  showOK("confirmpassword"); 
+  return true;
+}
+
+function validateDOB() {
+  const val = document.getElementById("dob").value.trim();
+  if (!val) {
+    showError("dob", "Date of birth is required.");
+    return false;
+  }
+  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(val)) {
+    showError("dob", "Use MM/DD/YYYY format (e.g. 01/15/1990).");
+    return false;
+  }
+ 
+  const parts = val.split("/");
+  const mm = parseInt(parts[0], 10);
+  const dd = parseInt(parts[1], 10);
+  const yyyy = parseInt(parts[2], 10);
+  if (mm < 1 || mm > 12) { showError("dob", "Invalid month (01–12)."); return false; }
+  if (dd < 1 || dd > 31) { showError("dob", "Invalid day (01–31)."); return false; }
+ 
+  const dob = new Date(yyyy, mm - 1, dd);
+  if (dob.getMonth() !== mm - 1 || dob.getDate() !== dd) {
+    showError("dob", "Invalid date — that day doesn't exist in that month.");
+    return false;
+  }
+ 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const minDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate());
+  if (dob > today) {
+    showError("dob", "Date of birth cannot be in the future.");
+    return false;
+  }
+  if (dob < minDate) {
+    showError("dob", "Date of birth cannot be more than 120 years ago.");
+    return false;
+  }
+ 
+  showOK("dob");
+  return true;
 }
  
+function validateSSN() {
+  const val = document.getElementById("ssn").value.trim();
+  if (!val) {
+    showError("ssn", "Social Security Number is required.");
+    return false;
+  }
+  if (!/^\d{3}-\d{2}-\d{4}$/.test(val)) {
+    showError("ssn", "Format: 123-45-6789 (dashes required).");
+    return false;
+  }
+ 
+  const parts = val.split("-");
+  if (parts[0] === "000" || parts[1] === "00" || parts[2] === "0000") {
+    showError("ssn", "Invalid SSN: no segment can be all zeros.");
+    return false;
+  }
+  if (parts[0] === "999") {
+    showError("ssn", "Invalid SSN: area code 999 is not issued.");
+    return false;
+  }
+ 
+  showOK("ssn");
+  return true;
+}
+
+function validateAddr1() {
+  const val = document.getElementById("addr1").value.trim();
+  if (!val) {
+    showError("addr1", "Street address is required.");
+    return false;
+  }
+  if (val.length < 5) {
+    showError("addr1", "Address seems too short.");
+    return false;
+  }
+  if (!/^\d+\s+\S/.test(val)) {
+    showError("addr1", "Should start with a street number (e.g. 123 Main St).");
+    return false;
+  }
+  if (/[<>"{}|\\^`]/.test(val)) {
+    showError("addr1", "Invalid characters in address.");
+    return false;
+  }
+  showOK("addr1");
+  return true;
+}
+
+function validateAddr2() {
+  const val = document.getElementById("addr2").value.trim();
+ 
+  if (val === "") { clearMsg("addr2"); return true; }   // optional
+  if (/[<>"{}|\\^`]/.test(val)) {
+    showError("addr2", "Invalid characters in address.");
+    return false;
+  }
+  showOK("addr2");
+  return true;
+}
+function validateSympDetails() {
+  const val = document.getElementById("sympdetails").value;
+  if (val === "") { clearMsg("sympdetails"); return true; }
+  if (/"/.test(val)) {
+    showError("sympdetails", "Double quotes are not allowed.");
+    return false;
+  }
+  if (/[<>{}\\]/.test(val)) {
+    showError("sympdetails", "Characters <, >, {, }, \\ are not allowed.");
+    return false;
+  }
+  if (val.length > 500) {
+    showError("sympdetails", "Maximum 500 characters (" + val.length + " entered).");
+    return false;
+  }
+  showOK("sympdetails");
+  return true;
+}
+
+function validateInsurance() {
+  const sel = document.querySelector('input[name="insurance"]:checked');
+  if (!sel) {
+    showError("insurance", "Please select Yes or No.");
+    return false;
+  }
+  showOK("insurance");
+  return true;
+
 // ─── REVIEW PANEL ─────────────────────────────────────────────────────────────
 function buildReview() {
 
@@ -174,22 +387,17 @@ function buildReview() {
   const phone       = document.getElementById("phone").value.trim();
   const userid      = document.getElementById("userid").value;
   const password    = document.getElementById("password").value;
- 
 
   const genderEl = document.querySelector('input[name="gender"]:checked');
-  const gender = genderEl ? genderEl.value : "(not selected)";
- 
+  const gender = genderEl ? genderEl.value : "(not selected)"; 
 
   const updatesEl = document.querySelector('input[name="updates"]:checked');
   const updates = updatesEl ? updatesEl.value : "(not selected)";
- 
 
   const insEl = document.querySelector('input[name="insurance"]:checked');
   const insurance = insEl ? insEl.value : "(not selected)";
  
-
-  const health = document.getElementById("health").value;
- 
+  const health = document.getElementById("health").value; 
 
   const symptoms = [];
   document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => {
@@ -239,18 +447,27 @@ function buildReview() {
  
 
   const html = `
-    <h2>★ Please Review This Information</h2>
+    <h2>★ Form Review ★</h2>
+    <p style="text-align:center;font-size:.85rem;color:#555;">
     <table class="reviewTable">
       <thead>
         <tr><th>Field</th><th>Value</th><th>Status</th></tr>
       </thead>
       <tbody>
+    <tr>
+    <td>First Name</td>
+            <td>${firstname || "(none)"}</td>${badge("firstname")}
+            </tr>
+ 
         <tr>
-          <td>Full Name</td>
-          <td>${(firstname || lastname)
-                ? '${firstname} ${mi ? mi + "." : ""} ${lastname}'.trim() : "(none)"} </td>
-          <td>${fieldStatus(firstname && lastname)}</td>
-        </tr>
+        <td>Middle Initial</td>
+            <td>${mi || "(blank – OK)"}</td>${badge("mi")}
+            </tr>
+ 
+        <tr>
+        <td>Last Name</td>
+            <td>${lastname || "(none)"}</td>${badge("lastname")}
+            </tr>
         <tr>
           <td>Gender</td>
           <td>${gender}</td>
@@ -276,11 +493,14 @@ function buildReview() {
           <td>${phone || "(none)"}</td>
           <td>${phoneStatus()}</td>
         </tr>
+   <tr>
+   <td>Address Line 1</td>
+            <td>${addr1 || "(none)"}</td>${badge("addr1")}
+            </tr>
         <tr>
-          <td>Address</td>
-          <td>${addr1}${addr2 ? "<br>" + addr2 : ""}<br>${city}, ${stateVal} ${zipDisplay}</td>
-          <td>${fieldStatus(addr1 && city && stateVal && zip)}</td>
-        </tr>
+        <td>Address Line 2</td>
+            <td>${addr2 || "(blank – optional)"}</td>${badge("addr2")}
+            </tr>
         <tr>
           <td>Contact for Updates?</td>
           <td>${updates}</td>
@@ -323,9 +543,10 @@ function buildReview() {
     </p>
   `;
  
-  document.getElementById("reviewPanel").innerHTML = html;
-  document.getElementById("reviewPanel").style.display = "block";
-  document.getElementById("reviewPanel").scrollIntoView({ behavior: "smooth" });
+  const panel = document.getElementById("reviewPanel");
+  panel.innerHTML     = html;
+  panel.style.display = "block";
+  panel.scrollIntoView({ behavior: "smooth" });
 }
  
 // ─── FULL FORM VALIDATION ON SUBMIT ──────────────────────────────────────────
