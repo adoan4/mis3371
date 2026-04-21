@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.06
+  Version: 3.07
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -571,4 +571,5 @@ function validateAll(e) {
     e.preventDefault();
     alert("Please fix the errors highlighted on the form before submitting.");
   }
+}
 }
