@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.07
+  Version: 3.09
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -377,21 +377,22 @@ function validateInsurance() {
 // ─── REVIEW PANEL ─────────────────────────────────────────────────────────────
 function buildReview() {
 
-  const firstname   = document.getElementById("firstname").value.trim();
-  const mi          = document.getElementById("mi").value.trim();
-  const lastname    = document.getElementById("lastname").value.trim();
-  const dob         = document.getElementById("dob").value;
-  const ssn         = document.getElementById("ssn").value;
-  const addr1       = document.getElementById("addr1").value.trim();
-  const addr2       = document.getElementById("addr2").value.trim();
-  const city        = document.getElementById("city").value.trim();
-  const stateEl     = document.getElementById("state");
-  const stateVal    = stateEl.value;
-  const zip         = document.getElementById("zip").value.trim();
-  const email       = document.getElementById("email").value.trim();
-  const phone       = document.getElementById("phone").value.trim();
-  const userid      = document.getElementById("userid").value;
-  const password    = document.getElementById("password").value;
+  const userid     = document.getElementById("userid").value;
+  const password   = document.getElementById("password").value;
+  const firstname  = document.getElementById("firstname").value.trim();
+  const mi         = document.getElementById("mi").value.trim();
+  const lastname   = document.getElementById("lastname").value.trim();
+  const dob        = document.getElementById("dob").value;
+  const ssn        = document.getElementById("ssn").value;
+  const addr1      = document.getElementById("addr1").value.trim();
+  const addr2      = document.getElementById("addr2").value.trim();
+  const city       = document.getElementById("city").value.trim();
+  const stateVal   = document.getElementById("state").value;
+  const zip        = document.getElementById("zip").value.trim();
+  const email      = document.getElementById("email").value.trim();
+  const phone      = document.getElementById("phone").value.trim();
+  const health     = document.getElementById("health").value;
+  const details    = document.getElementById("sympdetails").value.trim();
 
   const genderEl = document.querySelector('input[name="gender"]:checked');
   const gender = genderEl ? genderEl.value : "(not selected)"; 
@@ -408,10 +409,30 @@ function buildReview() {
   document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => {
     symptoms.push(cb.value);
   });
- 
+
+
+  
+   const v = {
+    userid:          validateUserID(),
+    password:        validatePassword(),
+    confirmpassword: validateConfirmPassword(),
+    firstname:       validateFirstName(),
+    mi:              validateMI(),
+    lastname:        validateLastName(),
+    gender:          validateGender(),
+    dob:             validateDOB(),
+    ssn:             validateSSN(),
+    addr1:           validateAddr1(),
+    addr2:           validateAddr2(),
+    city:            validateCity(),
+    state:           validateState(),
+    zip:             validateZip(),
+    email:           validateEmail(),
+    phone:           validatePhone(),
+    sympdetails:     validateSympDetails(),
+    insurance:       validateInsurance()
 
   const details = document.getElementById("sympdetails").value.trim();
- 
 
   function dobStatus() {
     if (!dob) return '<span class="err">ERROR: Required</span>';
@@ -449,8 +470,77 @@ function buildReview() {
  
 
   const zipDisplay = zip ? zip.substring(0, 10) : "";
- 
 
+function validateAll() {
+  const results = [
+    validateUserID(),
+    validatePassword(),
+    validateConfirmPassword(),
+    validateFirstName(),
+    validateMI(),
+    validateLastName(),
+    validateGender(),
+    validateDOB(),
+    validateSSN(),
+    validateAddr1(),
+    validateAddr2(),
+    validateCity(),
+    validateState(),
+    validateZip(),
+    validateEmail(),
+    validatePhone(),
+    validateSympDetails(),
+    validateInsurance()
+  ];
+ 
+  const errorCount = results.filter(r => r === false).length;
+  const summaryEl  = document.getElementById("formSummary");
+ 
+  if (errorCount === 0) {
+    showSubmit();
+    summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
+    summaryEl.className   = "formSummary allOK";
+    document.getElementById("submitbutton").scrollIntoView({ behavior: "smooth" });
+  } else {
+    hideSubmit();
+    summaryEl.textContent =
+      "⚠ " + errorCount + " error" + (errorCount > 1 ? "s" : "") +
+      " found. Please fix highlighted fields.";
+    summaryEl.className = "formSummary hasErrors";
+ 
+    const firstErr = document.querySelector(".errMsg.isError");
+    if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+  
+function finalSubmitCheck() {
+  const ok =
+    validateUserID()           &&
+    validatePassword()         &&
+    validateConfirmPassword()  &&
+    validateFirstName()        &&
+    validateMI()               &&
+    validateLastName()         &&
+    validateGender()           &&
+    validateDOB()              &&
+    validateSSN()              &&
+    validateAddr1()            &&
+    validateAddr2()            &&
+    validateCity()             &&
+    validateState()            &&
+    validateZip()              &&
+    validateEmail()            &&
+    validatePhone()            &&
+    validateSympDetails()      &&
+    validateInsurance();
+ 
+  if (!ok) {
+    alert("Validation failed. Please fix all errors before submitting.");
+    return false;
+  }
+  return true;
+}
+  
   const html = `
     <h2>★ Form Review ★</h2>
     <p style="text-align:center;font-size:.85rem;color:#555;">
@@ -552,24 +642,5 @@ function buildReview() {
   panel.innerHTML     = html;
   panel.style.display = "block";
   panel.scrollIntoView({ behavior: "smooth" });
-}
- 
-// ─── FULL FORM VALIDATION ON SUBMIT ──────────────────────────────────────────
-function validateAll(e) {
-  const checks = [
-    validateFirstName(),
-    validateMI(),
-    validateLastName(),
-    validateEmail(),
-    validatePhone(),
-    validateZip(),
-    validateUserID(),
-    validatePassword(),
-    validateConfirmPassword()
-  ];
-  if (checks.includes(false)) {
-    e.preventDefault();
-    alert("Please fix the errors highlighted on the form before submitting.");
-  }
 }
 }
