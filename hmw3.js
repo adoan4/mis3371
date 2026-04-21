@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.09
+  Version: 3.10
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -403,8 +403,6 @@ function buildReview() {
   const insEl = document.querySelector('input[name="insurance"]:checked');
   const insurance = insEl ? insEl.value : "(not selected)";
  
-  const health = document.getElementById("health").value; 
-
   const symptoms = [];
   document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => {
     symptoms.push(cb.value);
