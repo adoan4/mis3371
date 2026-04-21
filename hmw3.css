@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw2.css
 Date Created: 04/01/2026
 Date Updated: 04/15/2027
-Version: 3.03
+Version: 3.04
 Purpose: Style sheet for hmw2.html
 */
 body 
@@ -106,24 +106,28 @@ input[name="submitbutton"]
 {
   background-color: #2e2257;
   color: white;
+  font-family: "Georgia", serif;
 }
 
 input[name="resetbutton"]
 {
   background-color: #2e2257;
   color: white;
+  font-family: "Georgia", serif;
 }
 
 input[name="reviewbutton"]
 {
   background-color: #2e2257;
   color: white;
+  font-family: "Georgia", serif;
 }
 
 input[name="validatebutton"]
 {
   background-color: #2e2257;
   color: white;
+  font-family: "Georgia", serif;
 }
 
 .slider {
