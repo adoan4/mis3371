@@ -1,10 +1,10 @@
 /*
   Name: Alison Doan
-  File: hmw2.js
+  File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
   Version: 3.04
-  Purpose: External JavaScript for hmw2.html
+  Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
 function setTodayDate() {
