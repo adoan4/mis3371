@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.10
+  Version: 3.11
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -429,6 +429,7 @@ function buildReview() {
     phone:           validatePhone(),
     sympdetails:     validateSympDetails(),
     insurance:       validateInsurance()
+   };
 
   const details = document.getElementById("sympdetails").value.trim();
 
