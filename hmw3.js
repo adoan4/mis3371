@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.11
+  Version: 3.12
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -431,8 +431,6 @@ function buildReview() {
     insurance:       validateInsurance()
    };
 
-  const details = document.getElementById("sympdetails").value.trim();
-
   function dobStatus() {
     if (!dob) return '<span class="err">ERROR: Required</span>';
     const d = new Date(dob);
@@ -494,7 +492,7 @@ function validateAll() {
  
   const errorCount = results.filter(r => r === false).length;
   const summaryEl  = document.getElementById("formSummary");
- 
+  
   if (errorCount === 0) {
     showSubmit();
     summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
@@ -510,6 +508,7 @@ function validateAll() {
     const firstErr = document.querySelector(".errMsg.isError");
     if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+}
 }
   
 function finalSubmitCheck() {
@@ -538,6 +537,7 @@ function finalSubmitCheck() {
     return false;
   }
   return true;
+}
 }
   
   const html = `
@@ -641,5 +641,3 @@ function finalSubmitCheck() {
   panel.innerHTML     = html;
   panel.style.display = "block";
   panel.scrollIntoView({ behavior: "smooth" });
-}
-}
