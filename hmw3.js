@@ -263,8 +263,12 @@ function validateDOB() {
   const mm = parseInt(parts[0], 10);
   const dd = parseInt(parts[1], 10);
   const yyyy = parseInt(parts[2], 10);
-  if (mm < 1 || mm > 12) { showError("dob", "Invalid month (01–12)."); return false; }
-  if (dd < 1 || dd > 31) { showError("dob", "Invalid day (01–31)."); return false; }
+  if (mm < 1 || mm > 12) { 
+    showError("dob", "Invalid month (01–12)."); return false; 
+  }
+  if (dd < 1 || dd > 31) { 
+    showError("dob", "Invalid day (01–31)."); return false; 
+  }
  
   const dob = new Date(yyyy, mm - 1, dd);
   if (dob.getMonth() !== mm - 1 || dob.getDate() !== dd) {
@@ -346,6 +350,7 @@ function validateAddr2() {
   showOK("addr2");
   return true;
 }
+
 function validateSympDetails() {
   const val = document.getElementById("sympdetails").value;
   if (val === "") { clearMsg("sympdetails"); return true; }
