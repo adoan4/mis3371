@@ -373,6 +373,7 @@ function validateInsurance() {
   }
   showOK("insurance");
   return true;
+}
 
 // ─── REVIEW PANEL ─────────────────────────────────────────────────────────────
 function buildReview() {
