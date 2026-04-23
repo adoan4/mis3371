@@ -92,7 +92,7 @@ th
   border: 1px solid #f8f4ff;
   padding: 6px 14px;
   cursor: pointer;
-  font-family: "Georgia", serif;
+  font-family: "Rockwell", serif;
   border-radius: 3px;
   margin-top: 6px;
 }
@@ -106,28 +106,28 @@ input[name="submitbutton"]
 {
   background-color: #2e2257;
   color: white;
-  font-family: "Georgia", serif;
+  font-family: "Rockwell", serif;
 }
 
 input[name="resetbutton"]
 {
   background-color: #2e2257;
   color: white;
-  font-family: "Georgia", serif;
+  font-family: "Rockwell", serif;
 }
 
 input[name="reviewbutton"]
 {
   background-color: #2e2257;
   color: white;
-  font-family: "Georgia", serif;
+  font-family: "Rockwell", serif;
 }
 
 input[name="validatebutton"]
 {
   background-color: #2e2257;
   color: white;
-  font-family: "Georgia", serif;
+  font-family: "Rockwell", serif;
 }
 
 .slider {
