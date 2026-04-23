@@ -3,29 +3,26 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.17
+  Version: 3.18
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
 function setTodayDate() {
   const today = new Date();
-  document.getElementById("today").innerHTML =
-    "Today is: " + today.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
   const displayElement = document.getElementById("today");
-}
   if (displayElement) {
-    displayElement.innerHTML = "Today is: " + formattedDate;
-  } 
-  else {
-    console.error("Could not find an element with id='today'");
+    displayElement.innerHTML = "Today is: " + today.toLocaleDateString("en-US", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric"
+    });
   }
+}
 
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
 function updateSlider(val) {
   document.getElementById("healthDisplay").textContent = val + " / 10";
 }
  
-// ─── LIVE FIELD VALIDATION ────────────────────────────────────────────────────
+// ─── ERROR HELP ────────────────────────────────────────────────────
 function showError(fieldId, msg) {
   const el = document.getElementById(fieldId + "Err");
   if (el) {
@@ -47,8 +44,14 @@ function clearMsg(fieldId) {
     el.className = "errMsg";
   }
 }
+
+// ─── SHOW/HIDE SUBMIT ────────────────────────────────────────────────────
+
 function showSubmit() {
-  document.getElementById("submitbutton".style.display = "none");
+  document.getElementById("submitbutton").style.display = "inline-block";
+}
+function hideSubmit() {
+  document.getElementById("submitbutton").style.display = "none";
 }
 
 // ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
@@ -381,6 +384,8 @@ function validateInsurance() {
 }
 
 // ─── REVIEW PANEL ─────────────────────────────────────────────────────────────
+
+// ─── BUILD REVIEW ─────────────────────────────────────────────────────────────
 function buildReview() {
 
   const userid     = document.getElementById("userid").value;
@@ -401,19 +406,13 @@ function buildReview() {
   const details    = document.getElementById("sympdetails").value.trim();
 
   const genderEl = document.querySelector('input[name="gender"]:checked');
-  const gender = genderEl ? genderEl.value : "(not selected)"; 
-
   const updatesEl = document.querySelector('input[name="updates"]:checked');
-  const updates = updatesEl ? updatesEl.value : "(not selected)";
-
-  const insEl = document.querySelector('input[name="insurance"]:checked');
-  const insurance = insEl ? insEl.value : "(not selected)";
- 
+  const insEl = document.querySelector('input[name="insurance"]:checked'); 
   const symptoms = [];
-  document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => {
-    symptoms.push(cb.value);
-  });
+  document.querySelectorAll('input[name="symptom"]:checked').forEach(
+    cb => symptoms.push(cb.value));
 
+  // ─── pass/fail booleans ─────────────────────────────────────────────────────────────
    const v = {
     userid:          validateUserID(),
     password:        validatePassword(),
@@ -435,9 +434,48 @@ function buildReview() {
     insurance:       validateInsurance()
    };
 
-  function badge(key) 
-  {
-  const html = `
+  function badge(key) {
+    return v[key]   
+      ? '<td class="statusOK">✔</td>'
+      : '<td class="statusErr">✘</td>';
+  }
+    function dobStatus() {
+    if (!dob) return '<span class="err">ERROR: Required</span>';
+    const d = new Date(dob);
+    const now = new Date();
+    if (d > now) return '<span class="err">ERROR: Cannot be in the future</span>';
+    const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
+    if (d < minDate) return '<span class="err">ERROR: More than 120 years ago</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function fieldStatus(val, required = true) {
+    if (!val && required) return '<span class="err">ERROR: Required</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function emailStatus() {
+    if (!email) return '<span class="err">ERROR: Required</span>';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">ERROR: Invalid format</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function phoneStatus() {
+    if (!phone) return '(not provided)';
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">ERROR: Bad format</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function zipStatus() {
+    if (!zip) return '<span class="err">ERROR: Required</span>';
+    const truncated = zip.substring(0, 10);
+    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">ERROR: Invalid ZIP</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function pwStatus() {
+    if (!password) return '<span class="err">ERROR: Required</span>';
+    return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
+  }
+
+  const zipDisplay = zip ? zip.substring(0, 10) : "";    
+  
+    const html = `
     <h2>★ Form Review ★</h2>
     <p style="text-align:center;font-size:.85rem;color:#555;">
     <table class="reviewTable">
@@ -449,12 +487,10 @@ function buildReview() {
     <td>First Name</td>
             <td>${firstname || "(none)"}</td>${badge("firstname")}
             </tr>
- 
         <tr>
         <td>Middle Initial</td>
             <td>${mi || "(blank – OK)"}</td>${badge("mi")}
             </tr>
- 
         <tr>
         <td>Last Name</td>
             <td>${lastname || "(none)"}</td>${badge("lastname")}
@@ -537,47 +573,11 @@ function buildReview() {
   const panel = document.getElementById("reviewPanel");
   panel.innerHTML     = html;
   panel.style.display = "block";
-  panel.scrollIntoView({ behavior: "smooth" });  function dobStatus() 
-  {
-    if (!dob) return '<span class="err">ERROR: Required</span>';
-    const d = new Date(dob);
-    const now = new Date();
-    if (d > now) return '<span class="err">ERROR: Cannot be in the future</span>';
-    const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
-    if (d < minDate) return '<span class="err">ERROR: More than 120 years ago</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function fieldStatus(val, required = true) {
-    if (!val && required) return '<span class="err">ERROR: Required</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function emailStatus() {
-    if (!email) return '<span class="err">ERROR: Required</span>';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">ERROR: Invalid format</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function phoneStatus() {
-    if (!phone) return '(not provided)';
-    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">ERROR: Bad format</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function zipStatus() {
-    if (!zip) return '<span class="err">ERROR: Required</span>';
-    const truncated = zip.substring(0, 10);
-    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">ERROR: Invalid ZIP</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function pwStatus() {
-    if (!password) return '<span class="err">ERROR: Required</span>';
-    return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
-  }
-  }
+  panel.scrollIntoView({ behavior: "smooth" });  
 }
 
-  const zipDisplay = zip ? zip.substring(0, 10) : "";
-
-function validateAll() 
-{
+// ─── VALIDATE ALL ─────────────────────────────────────────────────────────────
+function validateAll() {
   const results = [
     validateUserID(),
     validatePassword(),
@@ -618,9 +618,10 @@ function validateAll()
     if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 }
-  
-function finalSubmitCheck() 
-{
+
+// ─── FINAL SUBMIT CHECK ─────────────────────────────────────────────────────────────
+
+function finalSubmitCheck() {
   const ok =
     validateUserID()           &&
     validatePassword()         &&
@@ -647,4 +648,18 @@ function finalSubmitCheck()
   }
   return true;
 }
+
+// ─── RESET FORM ─────────────────────────────────────────────────────────────
+function resetForm() {
+  hideSubmit();
+  document.querySelectorAll(".errMsg").forEach(el => {
+    el.textContent = ""; el.className = "errMsg";
+  });
+  const summaryEl = document.getElementById("formSummary");
+  summaryEl.textContent = ""; summaryEl.className = "formSummary";
+  const rp = document.getElementById("reviewPanel");
+  rp.style.display = "none"; rp.innerHTML = "";
+  document.getElementById("healthDisplay").textContent = "5 / 10";
 }
+/ ─── END HMW 3 ─────────────────────────────────────────────────────────────
+
