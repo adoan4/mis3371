@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.12
+  Version: 3.13
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -408,8 +408,6 @@ function buildReview() {
     symptoms.push(cb.value);
   });
 
-
-  
    const v = {
     userid:          validateUserID(),
     password:        validatePassword(),
@@ -431,115 +429,8 @@ function buildReview() {
     insurance:       validateInsurance()
    };
 
-  function dobStatus() {
-    if (!dob) return '<span class="err">ERROR: Required</span>';
-    const d = new Date(dob);
-    const now = new Date();
-    if (d > now) return '<span class="err">ERROR: Cannot be in the future</span>';
-    const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
-    if (d < minDate) return '<span class="err">ERROR: More than 120 years ago</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function fieldStatus(val, required = true) {
-    if (!val && required) return '<span class="err">ERROR: Required</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function emailStatus() {
-    if (!email) return '<span class="err">ERROR: Required</span>';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">ERROR: Invalid format</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function phoneStatus() {
-    if (!phone) return '(not provided)';
-    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">ERROR: Bad format</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function zipStatus() {
-    if (!zip) return '<span class="err">ERROR: Required</span>';
-    const truncated = zip.substring(0, 10);
-    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">ERROR: Invalid ZIP</span>';
-    return '<span class="ok">✔ pass</span>';
-  }
-  function pwStatus() {
-    if (!password) return '<span class="err">ERROR: Required</span>';
-    return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
-  }
- 
-
-  const zipDisplay = zip ? zip.substring(0, 10) : "";
-
-function validateAll() {
-  const results = [
-    validateUserID(),
-    validatePassword(),
-    validateConfirmPassword(),
-    validateFirstName(),
-    validateMI(),
-    validateLastName(),
-    validateGender(),
-    validateDOB(),
-    validateSSN(),
-    validateAddr1(),
-    validateAddr2(),
-    validateCity(),
-    validateState(),
-    validateZip(),
-    validateEmail(),
-    validatePhone(),
-    validateSympDetails(),
-    validateInsurance()
-  ];
- 
-  const errorCount = results.filter(r => r === false).length;
-  const summaryEl  = document.getElementById("formSummary");
-  
-  if (errorCount === 0) {
-    showSubmit();
-    summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
-    summaryEl.className   = "formSummary allOK";
-    document.getElementById("submitbutton").scrollIntoView({ behavior: "smooth" });
-  } else {
-    hideSubmit();
-    summaryEl.textContent =
-      "⚠ " + errorCount + " error" + (errorCount > 1 ? "s" : "") +
-      " found. Please fix highlighted fields.";
-    summaryEl.className = "formSummary hasErrors";
- 
-    const firstErr = document.querySelector(".errMsg.isError");
-    if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-}
-}
-  
-function finalSubmitCheck() {
-  const ok =
-    validateUserID()           &&
-    validatePassword()         &&
-    validateConfirmPassword()  &&
-    validateFirstName()        &&
-    validateMI()               &&
-    validateLastName()         &&
-    validateGender()           &&
-    validateDOB()              &&
-    validateSSN()              &&
-    validateAddr1()            &&
-    validateAddr2()            &&
-    validateCity()             &&
-    validateState()            &&
-    validateZip()              &&
-    validateEmail()            &&
-    validatePhone()            &&
-    validateSympDetails()      &&
-    validateInsurance();
- 
-  if (!ok) {
-    alert("Validation failed. Please fix all errors before submitting.");
-    return false;
-  }
-  return true;
-}
-}
-  
+  function badge(key) 
+  {
   const html = `
     <h2>★ Form Review ★</h2>
     <p style="text-align:center;font-size:.85rem;color:#555;">
@@ -640,4 +531,113 @@ function finalSubmitCheck() {
   const panel = document.getElementById("reviewPanel");
   panel.innerHTML     = html;
   panel.style.display = "block";
-  panel.scrollIntoView({ behavior: "smooth" });
+  panel.scrollIntoView({ behavior: "smooth" });  function dobStatus() 
+  {
+    if (!dob) return '<span class="err">ERROR: Required</span>';
+    const d = new Date(dob);
+    const now = new Date();
+    if (d > now) return '<span class="err">ERROR: Cannot be in the future</span>';
+    const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
+    if (d < minDate) return '<span class="err">ERROR: More than 120 years ago</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function fieldStatus(val, required = true) {
+    if (!val && required) return '<span class="err">ERROR: Required</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function emailStatus() {
+    if (!email) return '<span class="err">ERROR: Required</span>';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">ERROR: Invalid format</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function phoneStatus() {
+    if (!phone) return '(not provided)';
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">ERROR: Bad format</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function zipStatus() {
+    if (!zip) return '<span class="err">ERROR: Required</span>';
+    const truncated = zip.substring(0, 10);
+    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">ERROR: Invalid ZIP</span>';
+    return '<span class="ok">✔ pass</span>';
+  }
+  function pwStatus() {
+    if (!password) return '<span class="err">ERROR: Required</span>';
+    return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
+  }
+  }
+}
+
+  const zipDisplay = zip ? zip.substring(0, 10) : "";
+
+function validateAll() 
+{
+  const results = [
+    validateUserID(),
+    validatePassword(),
+    validateConfirmPassword(),
+    validateFirstName(),
+    validateMI(),
+    validateLastName(),
+    validateGender(),
+    validateDOB(),
+    validateSSN(),
+    validateAddr1(),
+    validateAddr2(),
+    validateCity(),
+    validateState(),
+    validateZip(),
+    validateEmail(),
+    validatePhone(),
+    validateSympDetails(),
+    validateInsurance()
+  ];
+ 
+  const errorCount = results.filter(r => r === false).length;
+  const summaryEl  = document.getElementById("formSummary");
+  
+  if (errorCount === 0) {
+    showSubmit();
+    summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
+    summaryEl.className   = "formSummary allOK";
+    document.getElementById("submitbutton").scrollIntoView({ behavior: "smooth" });
+  } else {
+    hideSubmit();
+    summaryEl.textContent =
+      "⚠ " + errorCount + " error" + (errorCount > 1 ? "s" : "") +
+      " found. Please fix highlighted fields.";
+    summaryEl.className = "formSummary hasErrors";
+ 
+    const firstErr = document.querySelector(".errMsg.isError");
+    if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+  
+function finalSubmitCheck() 
+{
+  const ok =
+    validateUserID()           &&
+    validatePassword()         &&
+    validateConfirmPassword()  &&
+    validateFirstName()        &&
+    validateMI()               &&
+    validateLastName()         &&
+    validateGender()           &&
+    validateDOB()              &&
+    validateSSN()              &&
+    validateAddr1()            &&
+    validateAddr2()            &&
+    validateCity()             &&
+    validateState()            &&
+    validateZip()              &&
+    validateEmail()            &&
+    validatePhone()            &&
+    validateSympDetails()      &&
+    validateInsurance();
+ 
+  if (!ok) {
+    alert("Validation failed. Please fix all errors before submitting.");
+    return false;
+  }
+  return true;
+}
