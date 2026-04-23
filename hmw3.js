@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.13
+  Version: 3.14
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -640,4 +640,5 @@ function finalSubmitCheck()
     return false;
   }
   return true;
+}
 }
