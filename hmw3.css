@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw2.css
 Date Created: 04/01/2026
 Date Updated: 04/15/2027
-Version: 3.04
+Version: 3.05
 Purpose: Style sheet for hmw2.html
 */
 body 
@@ -49,6 +49,13 @@ body
   width: 80px;
   height: auto;
   margin:0 auto;
+}
+
+.sectionhead
+{
+  font-family: "Rockwell", serif;
+  font-weight: bold;
+  color: #231f30;
 }
 
 table
