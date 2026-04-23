@@ -19,7 +19,7 @@ function setTodayDate() {
   else {
     console.error("Could not find an element with id='today'");
   }
-}
+
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
 function updateSlider(val) {
   document.getElementById("healthDisplay").textContent = val + " / 10";
