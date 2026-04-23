@@ -661,5 +661,5 @@ function resetForm() {
   rp.style.display = "none"; rp.innerHTML = "";
   document.getElementById("healthDisplay").textContent = "5 / 10";
 }
-/ ─── END HMW 3 ─────────────────────────────────────────────────────────────
+// ─── END HMW 3 ─────────────────────────────────────────────────────────────
 
