@@ -45,12 +45,9 @@ function clearMsg(fieldId) {
   }
 }
 
-// ─── SHOW/HIDE SUBMIT ────────────────────────────────────────────────────
+// ─── SHOW SUBMIT ────────────────────────────────────────────────────
 
 function showSubmit() {
-  document.getElementById("submitbutton").style.display = "inline-block";
-}
-function hideSubmit() {
   document.getElementById("submitbutton").style.display = "none";
 }
 
@@ -406,6 +403,7 @@ function buildReview() {
   const details    = document.getElementById("sympdetails").value.trim();
 
   const genderEl = document.querySelector('input[name="gender"]:checked');
+  const gender = genderEl ? genderEl.value : "(not selected)";
   const updatesEl = document.querySelector('input[name="updates"]:checked');
   const insEl = document.querySelector('input[name="insurance"]:checked'); 
   const symptoms = [];
