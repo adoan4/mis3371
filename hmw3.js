@@ -405,7 +405,9 @@ function buildReview() {
   const genderEl = document.querySelector('input[name="gender"]:checked');
   const gender = genderEl ? genderEl.value : "(not selected)";
   const updatesEl = document.querySelector('input[name="updates"]:checked');
-  const insEl = document.querySelector('input[name="insurance"]:checked'); 
+  const updates = updatesEl ? updatesEl.value : "(not selected)";
+  const insEl = document.querySelector('input[name="insurance"]:checked');
+  const ins = insEl ? insEl.value : "(not selected)";
   const symptoms = [];
   document.querySelectorAll('input[name="symptom"]:checked').forEach(
     cb => symptoms.push(cb.value));
