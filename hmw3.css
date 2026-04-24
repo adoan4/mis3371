@@ -56,7 +56,6 @@ body
   font-family: "Rockwell", serif;
   font-weight: bold;
   color: #231f30;
-  background-color: #2e2257;
 }
 
 table
@@ -95,7 +94,7 @@ th
 }
 
 #footer button {
-  background-color: #f8f4ff;
+  background-color: #2e2257;
   color: #2e2257;
   border: 1px solid #f8f4ff;
   padding: 6px 14px;
