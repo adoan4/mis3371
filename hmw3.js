@@ -409,7 +409,7 @@ function buildReview() {
   const updatesEl = document.querySelector('input[name="updates"]:checked');
   const updates = updatesEl ? updatesEl.value : "(not selected)";
   const insEl = document.querySelector('input[name="insurance"]:checked');
-  const ins = insEl ? insEl.value : "(not selected)";
+  const insurance = insEl ? insEl.value : "(not selected)";
   const symptoms = [];
   document.querySelectorAll('input[name="symptom"]:checked').forEach(
     cb => symptoms.push(cb.value));
@@ -663,5 +663,5 @@ function resetForm() {
   rp.style.display = "none"; rp.innerHTML = "";
   document.getElementById("healthDisplay").textContent = "5 / 10";
 }
-// ─── END HMW 3 ─────────────────────────────────────────────────────────────
+// ─── end hmw 3 ─────────────────────────────────────────────────────────────
 
