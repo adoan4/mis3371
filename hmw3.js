@@ -50,7 +50,7 @@ function clearMsg(fieldId) {
 function showSubmit() {
   document.getElementById("submitbutton").style.display = "none";
 }
-hideSubmit() {
+function hideSubmit() {
   document.getElementById("submitbutton").style.display = "none";
 }
 // ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
