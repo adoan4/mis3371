@@ -3,7 +3,7 @@
   File: hmw3.js
   Date Created: 04/01/2026
   Date Updated: 04/17/2026
-  Version: 3.18
+  Version: 3.21
   Purpose: External JavaScript for hmw3.html
 */
 // ─── DATE SETUP ───────────────────────────────────────────────────────────────
@@ -438,47 +438,47 @@ function buildReview() {
 
   function badge(key) {
     return v[key]   
-      ? '<td class="statusOK">✔</td>'
-      : '<td class="statusErr">✘</td>';
+      ? '<td class="statusOK">✔ PASS</td>'
+      : '<td class="statusErr">✘ ERROR</td>';
   }
     function dobStatus() {
-    if (!dob) return '<span class="err">ERROR: Required</span>';
+    if (!dob) return '<span class="err">✘ ERROR: Required</span>';
     const d = new Date(dob);
     const now = new Date();
-    if (d > now) return '<span class="err">ERROR: Cannot be in the future</span>';
+    if (d > now) return '<span class="err">✘ ERROR: Cannot be in the future</span>';
     const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
-    if (d < minDate) return '<span class="err">ERROR: More than 120 years ago</span>';
-    return '<span class="ok">✔ pass</span>';
+    if (d < minDate) return '<span class="err">✘ ERROR: More than 120 years ago</span>';
+    return '<span class="ok">✔ PASS</span>';
   }
   function fieldStatus(val, required = true) {
-    if (!val && required) return '<span class="err">ERROR: Required</span>';
-    return '<span class="ok">✔ pass</span>';
+    if (!val && required) return '<span class="err">✘ ERROR: Required</span>';
+    return '<span class="ok">✔ PASS</span>';
   }
   function emailStatus() {
-    if (!email) return '<span class="err">ERROR: Required</span>';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">ERROR: Invalid format</span>';
-    return '<span class="ok">✔ pass</span>';
+    if (!email) return '<span class="err">✘ ERROR: Required</span>';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<span class="err">✘ ERROR: Invalid format</span>';
+    return '<span class="ok">✔ PASS</span>';
   }
   function phoneStatus() {
-    if (!phone) return '(not provided)';
-    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">ERROR: Bad format</span>';
-    return '<span class="ok">✔ pass</span>';
+    if (!phone) return '✔ PASS';
+    if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) return '<span class="err">✘ ERROR: Bad format</span>';
+    return '<span class="ok">✔ PASS</span>';
   }
   function zipStatus() {
-    if (!zip) return '<span class="err">ERROR: Required</span>';
+    if (!zip) return '<span class="err">✘ ERROR: Required</span>';
     const truncated = zip.substring(0, 10);
-    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">ERROR: Invalid ZIP</span>';
-    return '<span class="ok">✔ pass</span>';
+    if (!/^\d{5}(-\d{4})?$/.test(truncated)) return '<span class="err">✘ ERROR: Invalid ZIP</span>';
+    return '<span class="ok">✔ PASS</span>';
   }
   function pwStatus() {
-    if (!password) return '<span class="err">ERROR: Required</span>';
-    return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
+    if (!password) return '<span class="err">✘ ERROR: Required</span>';
+    return validatePassword() ? '<span class="ok">✔ PASS</span>' : '<span class="err">✘ ERROR: Weak password</span>';
   }
 
   const zipDisplay = zip ? zip.substring(0, 10) : "";    
   
     const html = `
-    <h2>★ Form Review ★</h2>
+    <h2 style="text-align: center;">★ Form Review ★</h2>
     <p style="text-align:center;font-size:.85rem;color:#555;">
     <table class="reviewTable">
       <thead>
@@ -491,7 +491,7 @@ function buildReview() {
             </tr>
         <tr>
         <td>Middle Initial</td>
-            <td>${mi || "(blank – OK)"}</td>${badge("mi")}
+            <td>${mi || "(none)"}</td>${badge("mi")}
             </tr>
         <tr>
         <td>Last Name</td>
@@ -509,7 +509,7 @@ function buildReview() {
         </tr>
         <tr>
           <td>Social Security</td>
-          <td>${ssn ? "***-**-" + ssn.slice(-4) : "(not entered)"}</td>
+          <td>${ssn ? "***-**-" + ssn.slice(-4) : "(none)"}</td>
           <td>${fieldStatus(ssn)}</td>
         </tr>
         <tr>
@@ -528,7 +528,7 @@ function buildReview() {
             </tr>
         <tr>
         <td>Address Line 2</td>
-            <td>${addr2 || "(blank – optional)"}</td>${badge("addr2")}
+            <td>${addr2 || "(none)"}</td>${badge("addr2")}
             </tr>
         <tr>
           <td>Contact for Updates?</td>
@@ -538,17 +538,17 @@ function buildReview() {
         <tr>
           <td>Health Rating</td>
           <td>${health} / 10</td>
-          <td><span class="ok">✔ pass</span></td>
+          <td><span class="ok">✔ PASS</span></td>
         </tr>
         <tr>
           <td>Symptoms Checked</td>
           <td>${symptoms.length > 0 ? symptoms.join(", ") : "(none selected)"}</td>
-          <td><span class="ok">✔ pass</span></td>
+          <td><span class="ok">✔ PASS</span></td>
         </tr>
         <tr>
           <td>Symptom Details</td>
-          <td>${details || "(none provided)"}</td>
-          <td><span class="ok">✔ pass</span></td>
+          <td>${details || "(none)"}</td>
+          <td><span class="ok">✔ PASS</span></td>
         </tr>
         <tr>
           <td>Has Insurance?</td>
