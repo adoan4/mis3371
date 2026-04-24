@@ -45,12 +45,14 @@ function clearMsg(fieldId) {
   }
 }
 
-// ─── SHOW SUBMIT ────────────────────────────────────────────────────
+// ─── SHOW/HIDE SUBMIT ────────────────────────────────────────────────────
 
 function showSubmit() {
   document.getElementById("submitbutton").style.display = "none";
 }
-
+hideSubmit() {
+  document.getElementById("submitbutton").style.display = "none";
+}
 // ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
 function validateFirstName() {
   const val = document.getElementById("firstname").value;
