@@ -175,11 +175,9 @@ function buildReview() {
   const userid      = document.getElementById("userid").value;
   const password    = document.getElementById("password").value;
  
-
   const genderEl = document.querySelector('input[name="gender"]:checked');
   const gender = genderEl ? genderEl.value : "(not selected)";
  
-
   const updatesEl = document.querySelector('input[name="updates"]:checked');
   const updates = updatesEl ? updatesEl.value : "(not selected)";
  
@@ -187,19 +185,36 @@ function buildReview() {
   const insEl = document.querySelector('input[name="insurance"]:checked');
   const insurance = insEl ? insEl.value : "(not selected)";
  
-
   const health = document.getElementById("health").value;
- 
 
   const symptoms = [];
   document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => {
     symptoms.push(cb.value);
   });
- 
 
   const details = document.getElementById("sympdetails").value.trim();
- 
 
+  const v = {
+    userid:          validateUserID(),
+    password:        validatePassword(),
+    confirmpassword: validateConfirmPassword(),
+    firstname:       validateFirstName(),
+    mi:              validateMI(),
+    lastname:        validateLastName(),
+    gender:          validateGender(),
+    dob:             validateDOB(),
+    ssn:             validateSSN(),
+    addr1:           validateAddr1(),
+    addr2:           validateAddr2(),
+    city:            validateCity(),
+    state:           validateState(),
+    zip:             validateZip(),
+    email:           validateEmail(),
+    phone:           validatePhone(),
+    sympdetails:     validateSympDetails(),
+    insurance:       validateInsurance()
+};
+  
   function dobStatus() {
     if (!dob) return '<span class="err">ERROR: Required</span>';
     const d = new Date(dob);
@@ -212,6 +227,11 @@ function buildReview() {
   function fieldStatus(val, required = true) {
     if (!val && required) return '<span class="err">ERROR: Required</span>';
     return '<span class="ok">✔ pass</span>';
+  }
+    function badge(key) {
+    return v[key]
+      ? '<td class="statusOK">✔ OK</td>'
+      : '<td class="statusErr">✘ Error</td>';
   }
   function emailStatus() {
     if (!email) return '<span class="err">ERROR: Required</span>';
@@ -233,131 +253,7 @@ function buildReview() {
     if (!password) return '<span class="err">ERROR: Required</span>';
     return validatePassword() ? '<span class="ok">✔ pass</span>' : '<span class="err">ERROR: Weak password</span>';
   }
-
-function validateAll() {
-  const results = [
-    validateUserID(),
-    validatePassword(),
-    validateConfirmPassword(),
-    validateFirstName(),
-    validateMI(),
-    validateLastName(),
-    validateGender(),
-    validateDOB(),
-    validateSSN(),
-    validateAddr1(),
-    validateAddr2(),
-    validateCity(),
-    validateState(),
-    validateZip(),
-    validateEmail(),
-    validatePhone(),
-    validateSympDetails(),
-    validateInsurance()
-  ];
- 
-  const errorCount = results.filter(r => r === false).length;
-  const summaryEl  = document.getElementById("formSummary");
- 
-  if (errorCount === 0) {
-    showSubmit();
-    summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
-    summaryEl.className   = "formSummary allOK";
-    document.getElementById("submitbutton").scrollIntoView({ behavior: "smooth" });
-  } else {
-    hideSubmit();
-    summaryEl.textContent =
-      "⚠ " + errorCount + " error" + (errorCount > 1 ? "s" : "") +
-      " found. Please fix highlighted fields.";
-    summaryEl.className = "formSummary hasErrors";
- 
-    const firstErr = document.querySelector(".errMsg.isError");
-    if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-}
-  
-function finalSubmitCheck() {
-    const ok =
-    validateUserID()           &&
-    validatePassword()         &&
-    validateConfirmPassword()  &&
-    validateFirstName()        &&
-    validateMI()               &&
-    validateLastName()         &&
-    validateGender()           &&
-    validateDOB()              &&
-    validateSSN()              &&
-    validateAddr1()            &&
-    validateAddr2()            &&
-    validateCity()             &&
-    validateState()            &&
-    validateZip()              &&
-    validateEmail()            &&
-    validatePhone()            &&
-    validateSympDetails()      &&
-    validateInsurance();
- 
-  if (!ok) {
-    alert("Validation failed. Please fix all errors before submitting.");
-    return false;
-  }
-  return true;
-}
-  
-  // ── more review ──
-function buildReview() {
- 
-  const userid     = document.getElementById("userid").value;
-  const password   = document.getElementById("password").value;
-  const firstname  = document.getElementById("firstname").value.trim();
-  const mi         = document.getElementById("mi").value.trim();
-  const lastname   = document.getElementById("lastname").value.trim();
-  const dob        = document.getElementById("dob").value;
-  const ssn        = document.getElementById("ssn").value;
-  const addr1      = document.getElementById("addr1").value.trim();
-  const addr2      = document.getElementById("addr2").value.trim();
-  const city       = document.getElementById("city").value.trim();
-  const stateVal   = document.getElementById("state").value;
-  const zip        = document.getElementById("zip").value.trim();
-  const email      = document.getElementById("email").value.trim();
-  const phone      = document.getElementById("phone").value.trim();
-  const health     = document.getElementById("health").value;
-  const details    = document.getElementById("sympdetails").value.trim();
- 
-  const genderEl  = document.querySelector('input[name="gender"]:checked');
-  const updatesEl = document.querySelector('input[name="updates"]:checked');
-  const insEl     = document.querySelector('input[name="insurance"]:checked');
-  const symptoms  = [];
-  document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => symptoms.push(cb.value));
- 
-  const v = {
-    userid:          validateUserID(),
-    password:        validatePassword(),
-    confirmpassword: validateConfirmPassword(),
-    firstname:       validateFirstName(),
-    mi:              validateMI(),
-    lastname:        validateLastName(),
-    gender:          validateGender(),
-    dob:             validateDOB(),
-    ssn:             validateSSN(),
-    addr1:           validateAddr1(),
-    addr2:           validateAddr2(),
-    city:            validateCity(),
-    state:           validateState(),
-    zip:             validateZip(),
-    email:           validateEmail(),
-    phone:           validatePhone(),
-    sympdetails:     validateSympDetails(),
-    insurance:       validateInsurance()
-  };
- 
-  function badge(key) {
-    return v[key]
-      ? '<td class="statusOK">✔ OK</td>'
-      : '<td class="statusErr">✘ Error</td>';
-  }
- 
-  const ssnDisplay = ssn ? "***-**-" + ssn.replace(/-/g, "").slice(-4) : "(not entered)"
+    const ssnDisplay = ssn ? "***-**-" + ssn.replace(/-/g, "").slice(-4) : "(not entered)"
   
   const zipDisplay = zip ? zip.substring(0, 10) : "";
  
@@ -449,4 +345,73 @@ function buildReview() {
   document.getElementById("reviewPanel").style.display = "block";
   document.getElementById("reviewPanel").scrollIntoView({ behavior: "smooth" });
 }
+
+function validateAll() {
+  const results = [
+    validateUserID(),
+    validatePassword(),
+    validateConfirmPassword(),
+    validateFirstName(),
+    validateMI(),
+    validateLastName(),
+    validateGender(),
+    validateDOB(),
+    validateSSN(),
+    validateAddr1(),
+    validateAddr2(),
+    validateCity(),
+    validateState(),
+    validateZip(),
+    validateEmail(),
+    validatePhone(),
+    validateSympDetails(),
+    validateInsurance()
+  ];
+ 
+  const errorCount = results.filter(r => r === false).length;
+  const summaryEl  = document.getElementById("formSummary");
+ 
+  if (errorCount === 0) {
+    showSubmit();
+    summaryEl.textContent = "✔ All fields passed! Click Submit Form to proceed.";
+    summaryEl.className   = "formSummary allOK";
+    document.getElementById("submitbutton").scrollIntoView({ behavior: "smooth" });
+  } else {
+    hideSubmit();
+    summaryEl.textContent =
+      "⚠ " + errorCount + " error" + (errorCount > 1 ? "s" : "") +
+      " found. Please fix highlighted fields.";
+    summaryEl.className = "formSummary hasErrors";
+ 
+    const firstErr = document.querySelector(".errMsg.isError");
+    if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+  
+function finalSubmitCheck() {
+    const ok =
+    validateUserID()           &&
+    validatePassword()         &&
+    validateConfirmPassword()  &&
+    validateFirstName()        &&
+    validateMI()               &&
+    validateLastName()         &&
+    validateGender()           &&
+    validateDOB()              &&
+    validateSSN()              &&
+    validateAddr1()            &&
+    validateAddr2()            &&
+    validateCity()             &&
+    validateState()            &&
+    validateZip()              &&
+    validateEmail()            &&
+    validatePhone()            &&
+    validateSympDetails()      &&
+    validateInsurance();
+ 
+  if (!ok) {
+    alert("Validation failed. Please fix all errors before submitting.");
+    return false;
+  }
+  return true;
 }
