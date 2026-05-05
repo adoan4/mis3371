@@ -450,7 +450,11 @@ function checkReturningUser() {
     document.getElementById("firstname").value = savedName;
 
     document.getElementById("notMeSection").style.display = "block";
-    document.getElementById("notMeLabel").textContent = "Not " + savedName + "? Click here to start as a new user.";
+    document.getElementById("notMeLabel").textContent = 
+      "Not " + savedName + "? Click here to start as a new user.";
+
+    loadfromLocalStorage();
+    
   } 
   else {
     welcomeEl.textContent = "Welcome, New User!";
