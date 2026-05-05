@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
 Date Updated: 05/05/2027
-Version: 4.02
+Version: 4.03
 Purpose: Style sheet for hmw3.html
 */
 body 
@@ -167,6 +167,17 @@ input[name="validatebutton"]
     font-size: 0.75rem;
   }
 
+  iframe 
+  {
+    width: 700px;         
+    display: block;       
+    margin-left: auto;   
+    margin-right: auto;   
+    margin-top: 20px;     
+    margin-bottom: 20px;  
+    border: 1px solid #9b87c9; 
+    border-radius: 4px;
+}
   
 a:visited
 {
