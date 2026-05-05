@@ -7,6 +7,7 @@
   Purpose: External JavaScript for hmw4.html
 */
 // ─── DATE/STATE SETUP ──────────────────────────────────────────────────────────
+
 function setTodayDate() {
   const today = new Date();
   const displayElement = document.getElementById("today");
@@ -15,6 +16,8 @@ function setTodayDate() {
       weekday: "long", year: "numeric", month: "long", day: "numeric"
     });
   }
+}
+
   function loadStates() {
     fetch("states.json")
       .then(response => response.json())
@@ -28,7 +31,6 @@ function setTodayDate() {
         });
     })
     .catch(err => console.error("Could not load states:", err));
-}
 }
 
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
