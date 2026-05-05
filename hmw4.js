@@ -811,11 +811,13 @@ function loadFromLocalStorage() {
   });
 }
 
-setTodayDate();
-loadStates();
-checkReturningUser();
-if(getCookie("firstname")) {
-  loadFromLocalStorage();
-}
+document.addEventListener("DOMContentLoaded", function() { 
+  setTodayDate();       
+  loadStates();         
+  checkReturningUser(); 
+  if (typeof getCookie === "function" && getCookie("firstname")) {    
+    loadFromLocalStorage(); 
+  }
+});
 
 // ─── end hmw 3 ─────────────────────────────────────────────────────────────
