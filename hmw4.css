@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
 Date Updated: 05/05/2027
-Version: 4.01
+Version: 4.02
 Purpose: Style sheet for hmw3.html
 */
 body 
@@ -153,11 +153,21 @@ input[name="validatebutton"]
   font-family: "Rockwell", serif;
 }
 
-.slider {
+.slider 
+{
   width: 70%;
   vertical-align: middle;
   accent-color: #5b479a;
 
+.errMsg 
+  {
+    display: block;
+    color: #530000;
+    min-height: 1em;
+    font-size: 0.75rem;
+  }
+
+  
 a:visited
 {
   color: blue;
