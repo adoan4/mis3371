@@ -3,7 +3,7 @@
   File: hmw4.js
   Date Created: 05/01/2026
   Date Updated: 05/05/2026
-  Version: 4.05
+  Version: 4.06
   Purpose: External JavaScript for hmw4.html
 */
 // ─── DATE/STATE SETUP ──────────────────────────────────────────────────────────
@@ -18,19 +18,20 @@ function setTodayDate() {
   }
 }
 
-  function loadStates() {
-    fetch("states.json")
-      .then(response => response.json())
-      .then(states => {
-        const select = document.getElementById("state");
-        states.forEach(s => {
-          const opt = document.createElement("option");        
-          opt.value = s;        
-          opt.textContent = s;        
-          select.appendChild(opt);     
-        });
-    })
-    .catch(err => console.error("Could not load states:", err));
+  
+function loadStates() {
+  fetch("states.json")
+    .then(response => response.json())
+    .then(states => {
+      const select = document.getElementById("state");
+      states.forEach(s => {
+        const opt = document.createElement("option");        
+        opt.value = s;        
+        opt.textContent = s;        
+        select.appendChild(opt);     
+      });
+  })
+  .catch(err => console.error("Could not load states:", err));
 }
 
 // ─── SLIDER DISPLAY ───────────────────────────────────────────────────────────
