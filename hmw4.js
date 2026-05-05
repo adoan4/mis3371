@@ -62,11 +62,19 @@ function clearMsg(fieldId) {
 // ─── SHOW/HIDE SUBMIT ────────────────────────────────────────────────────
 
 function showSubmit() {
-  document.getElementById("submitbutton").style.display = "none";
+  const btn = document.getElementById("submitbutton");
+  btn.style.opacity       = "1";
+  btn.style.pointerEvents = "auto";
+  btn.style.cursor        = "pointer";
 }
+
 function hideSubmit() {
-  document.getElementById("submitbutton").style.display = "none";
+  const btn = document.getElementById("submitbutton");
+  btn.style.opacity       = "0.3";
+  btn.style.pointerEvents = "none";
+  btn.style.cursor        = "not-allowed";
 }
+
 // ─── INDIVIDUAL FIELD VALIDATION ────────────────────────────────────────────────────
 function validateFirstName() {
   const val = document.getElementById("firstname").value;
