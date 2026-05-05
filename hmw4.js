@@ -3,7 +3,7 @@
   File: hmw4.js
   Date Created: 04/01/2026
   Date Updated: 05/05/2026
-  Version: 4.01
+  Version: 4.03
   Purpose: External JavaScript for hmw4.html
 */
 // ─── DATE/STATE SETUP ──────────────────────────────────────────────────────────
@@ -662,6 +662,7 @@ function finalSubmitCheck() {
     alert("Validation failed. Please fix all errors before submitting.");
     return false;
   }
+  saveUserData()
   return true;
 }
 
@@ -676,6 +677,26 @@ function resetForm() {
   const rp = document.getElementById("reviewPanel");
   rp.style.display = "none"; rp.innerHTML = "";
   document.getElementById("healthDisplay").textContent = "5 / 10";
+}
+
+// ─── SAVE DATA ─────────────────────────────────────────────────────────────
+
+function saveUserData() {    
+  if (document.getElementById("rememberMe").checked) {
+    const fname = document.getElementById("firstname").value.trim();
+    setCookie("firstname", fname, 48);
+    saveToLocalStorage();
+  } else {
+    deleteCookie("firstname");
+    localStorage.clear();
+  }
+}
+
+setTodayDate();
+loadStates();
+checkReturningUser();
+if(getCookie("firstname")) {
+  loadFromLocalStorage();
 }
 
 // ─── end hmw 3 ─────────────────────────────────────────────────────────────
