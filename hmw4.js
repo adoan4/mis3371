@@ -3,7 +3,7 @@
   File: hmw4.js
   Date Created: 05/01/2026
   Date Updated: 05/05/2026
-  Version: 4.04
+  Version: 4.05
   Purpose: External JavaScript for hmw4.html
 */
 // ─── DATE/STATE SETUP ──────────────────────────────────────────────────────────
@@ -79,6 +79,7 @@ function validateFirstName() {
     return false;
   }
   showOK("firstname"); 
+  saveToLocalStorage();
   return true;
 }
  
@@ -90,6 +91,7 @@ function validateMI() {
     return false;
   }
   showOK("mi"); 
+  saveToLocalStorage();
   return true;
 }
  
@@ -104,6 +106,7 @@ function validateLastName() {
     return false;
   }
   showOK("lastname"); 
+  saveToLocalStorage();
   return true;
 }
 
@@ -114,6 +117,7 @@ function validateGender() {
     return false;
   }
   showOK("gender");
+  saveToLocalStorage();
   return true;
 }
  
@@ -129,7 +133,10 @@ function validateEmail() {
     showError("email", "Enter a valid email: name@domain.tld");
     return false;
   }
-  showOK("email"); return true;
+  
+  showOK("email"); 
+  saveToLocalStorage();  
+  return true;
 }
  
 function validatePhone() {
@@ -138,7 +145,9 @@ function validatePhone() {
     showError("phone", "Format: 000-000-0000");
     return false;
   }
-  showOK("phone"); return true;
+  showOK("phone"); 
+  saveToLocalStorage();
+  return true;
 }
 
 function validateState() {
@@ -149,6 +158,7 @@ function validateState() {
     return false;
   }
   showOK("state");
+  saveToLocalStorage();
   return true;
 }
 
@@ -164,6 +174,7 @@ function validateCity() {
     return false;
   }
   showOK("city");
+  saveToLocalStorage();
   return true;
 }
 
@@ -178,6 +189,7 @@ function validateZip() {
     return false;
   }
   showOK("zip"); 
+  saveToLocalStorage();
   return true;
 }
  
@@ -194,6 +206,7 @@ function validateUserID() {
     return false;
   }
   showOK("userid");
+  saveToLocalStorage();
   return true;
 }
 
@@ -245,6 +258,7 @@ function validatePassword() {
     return false;
   }
   showOK("password");
+  saveToLocalStorage();
   return true;
 }
  
@@ -261,6 +275,7 @@ function validateConfirmPassword() {
     return false;
   }
   showOK("confirmpassword"); 
+  saveToLocalStorage();
   return true;
 }
 
@@ -305,6 +320,7 @@ function validateDOB() {
   }
  
   showOK("dob");
+  saveToLocalStorage();
   return true;
 }
  
@@ -330,6 +346,7 @@ function validateSSN() {
   }
  
   showOK("ssn");
+  saveToLocalStorage();
   return true;
 }
 
@@ -352,6 +369,7 @@ function validateAddr1() {
     return false;
   }
   showOK("addr1");
+  saveToLocalStorage();
   return true;
 }
 
@@ -364,6 +382,7 @@ function validateAddr2() {
     return false;
   }
   showOK("addr2");
+  saveToLocalStorage();
   return true;
 }
 
@@ -383,6 +402,7 @@ function validateSympDetails() {
     return false;
   }
   showOK("sympdetails");
+  saveToLocalStorage();
   return true;
 }
 
@@ -393,6 +413,7 @@ function validateInsurance() {
     return false;
   }
   showOK("insurance");
+  saveToLocalStorage();
   return true;
 }
 
@@ -731,6 +752,51 @@ function saveUserData() {
     deleteCookie("firstname");
     localStorage.clear();
   }
+}
+
+function saveToLocalStorage() {
+  const fields = ["userid","lastname","mi","dob","addr1","addr2",
+                  "city","state","zip","email","phone","sympdetails"];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) localStorage.setItem(id, el.value);
+  });
+
+  localStorage.setItem("health", document.getElementById("health").value);
+
+  const gender = document.querySelector('input[name="gender"]:checked');
+  if (gender) localStorage.setItem("gender", gender.value);
+  // save checkboxes
+  const checked = [];
+  document.querySelectorAll('input[name="symptom"]:checked').forEach(cb => checked.push(cb.value));
+  localStorage.setItem("symptoms", JSON.stringify(checked));
+}
+
+function loadFromLocalStorage() {
+  const fields = ["userid","lastname","mi","dob","addr1","addr2",
+                  "city","state","zip","email","phone","sympdetails"];
+  fields.forEach(id => {
+    const val = localStorage.getItem(id);
+    const el  = document.getElementById(id);
+    if (val && el) el.value = val;
+  });
+
+  const health = localStorage.getItem("health");
+  if (health) {
+    document.getElementById("health").value = health;
+    updateSlider(health);
+  }
+
+  const gender = localStorage.getItem("gender");
+  if (gender) {
+    const radio = document.querySelector('input[name="gender"][value="' + gender + '"]');
+    if (radio) radio.checked = true;
+  }
+
+  const symptoms = JSON.parse(localStorage.getItem("symptoms") || "[]");
+  document.querySelectorAll('input[name="symptom"]').forEach(cb => {
+    cb.checked = symptoms.includes(cb.value);
+  });
 }
 
 setTodayDate();
