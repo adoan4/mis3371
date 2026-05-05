@@ -4,7 +4,7 @@ Name: Alison Doan
 File: hmw4.html
 Date created: 05/01/2026
 Date updated: 05/05/2026
-Version: 4.05
+Version: 4.06
 Purpose: MIS 3371 Homework 4 demonstrating JavaScript real-time form validation.
 -->
 <html lang="en">
@@ -22,6 +22,11 @@ Purpose: MIS 3371 Homework 4 demonstrating JavaScript real-time form validation.
       <h1>SoReal Medical</h1>
       <h3>Patient Registration Form</h3>
       <p id="today"></p>
+      <p id="welcomeMsg"></p>          
+      <div id="notMeSection" style="display:none;">
+        <input type="checkbox" id="notMeCheck" onchange="startAsNewUser()">
+        <label for="notMeCheck" id="notMeLabel"></label>
+      </div>
     </div>
     
     <p id="welcomeMsg"></p>
