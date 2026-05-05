@@ -1,9 +1,9 @@
 /*
   Name: Alison Doan
   File: hmw4.js
-  Date Created: 04/01/2026
+  Date Created: 05/01/2026
   Date Updated: 05/05/2026
-  Version: 4.03
+  Version: 4.04
   Purpose: External JavaScript for hmw4.html
 */
 // ─── DATE/STATE SETUP ──────────────────────────────────────────────────────────
@@ -394,6 +394,47 @@ function validateInsurance() {
   }
   showOK("insurance");
   return true;
+}
+
+// ─── USER RETURNING/NOT ─────────────────────────────────────────────────────────────
+
+function setCookie(name, value, hours) {
+  const expires = new Date(Date.now() + hours * 3600000).toUTCString();
+  document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/";
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+}
+
+function checkReturningUser() {
+  const savedName = getCookie("firstname");
+  const welcomeEl = document.getElementById("welcomeMsg");
+
+  if (savedName) {
+    welcomeEl.textContent = "Welcome back, " + savedName + "!";
+    document.getElementById("firstname").value = savedName;
+
+    document.getElementById("notMeSection").style.display = "block";
+    document.getElementById("notMeLabel").textContent = "Not " + savedName + "? Click here to start as a new user.";
+  } 
+  else {
+    welcomeEl.textContent = "Welcome, New User!";
+    document.getElementById("notMeSection").style.display = "none";
+  }
+}
+
+function startAsNewUser() {
+  deleteCookie("firstname");
+  localStorage.clear();
+  resetForm();
+  document.getElementById("welcomeMsg").textContent = "Welcome, New User!";
+  document.getElementById("notMeSection").style.display = "none";
 }
 
 // ─── REVIEW PANEL ─────────────────────────────────────────────────────────────
