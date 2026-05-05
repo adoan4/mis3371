@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
 Date Updated: 05/05/2027
-Version: 4.03
+Version: 4.04
 Purpose: Style sheet for hmw3.html
 */
 body 
@@ -125,28 +125,31 @@ th
   width:100%;
 }
 
-input[name="submitbutton"]
+#submitbutton
+{
+  background-color: #2e2257;
+  color: white;
+  font-family: "Rockwell", serif;
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+#resetbutton
 {
   background-color: #2e2257;
   color: white;
   font-family: "Rockwell", serif;
 }
 
-input[name="resetbutton"]
+#reviewbutton
 {
   background-color: #2e2257;
   color: white;
   font-family: "Rockwell", serif;
 }
 
-input[name="reviewbutton"]
-{
-  background-color: #2e2257;
-  color: white;
-  font-family: "Rockwell", serif;
-}
-
-input[name="validatebutton"]
+#validatebutton"
 {
   background-color: #2e2257;
   color: white;
