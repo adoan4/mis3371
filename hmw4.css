@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
 Date Updated: 05/05/2027
-Version: 4.05
+Version: 4.06
 Purpose: Style sheet for hmw4.html
 */
 body 
@@ -79,7 +79,8 @@ table
   color: #231f30;
   background-color: rgb(165,133,201);
   padding: 20px 24px;
-  border-collapse: collapse;
+  border-collapse: separate;
+  boarder-spacing: 10px;
   width: 90%;
   max-width: 900x;
 }
@@ -183,7 +184,18 @@ th
     margin-bottom: 20px;  
     border: 1px solid #9b87c9; 
     border-radius: 4px;
-}
+  }
+
+  .errMsg.isError 
+  {
+  animation: slideDown 0.3s ease;
+  }
+  
+  @keyframes slideDown 
+  {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+  }
   
 a:visited
 {
