@@ -3,8 +3,8 @@
 Name: Alison Doan
 File: hmw4.html
 Date created: 05/01/2026
-Date updated: 05/05/2026
-Version: 4.07
+Date updated: 05/08/2026
+Version: 4.08
 Purpose: MIS 3371 Homework 4 demonstrating JavaScript real-time form validation.
 -->
 <html lang="en">
@@ -83,6 +83,10 @@ Purpose: MIS 3371 Homework 4 demonstrating JavaScript real-time form validation.
                   oninput="validatePassword(); validateConfirmPassword()"
                   required>
               <span class="errMsg" id="passwordErr"></span>
+              <div id="strengthBar">
+              <div id="strengthFill"></div>
+              </div>
+              <span id="strengthLabel"></span>
             </td>
             <td>Confirm Password:</td>
             <td>
