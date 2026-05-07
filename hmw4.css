@@ -3,7 +3,7 @@ Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
 Date Updated: 05/08/2027
-Version: 4.07
+Version: 4.08
 Purpose: Style sheet for hmw4.html
 */
 body 
@@ -80,7 +80,7 @@ table
   background-color: rgb(165,133,201);
   padding: 20px 24px;
   border-collapse: separate;
-  boarder-spacing: 10px;
+  border-spacing: 15px;
   width: 90%;
   max-width: 900x;
 }
