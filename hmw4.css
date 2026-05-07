@@ -2,8 +2,8 @@
 Name: Alison Doan
 File: hmw4.css
 Date Created: 05/01/2026
-Date Updated: 05/05/2027
-Version: 4.06
+Date Updated: 05/08/2027
+Version: 4.07
 Purpose: Style sheet for hmw4.html
 */
 body 
@@ -173,7 +173,7 @@ th
     min-height: 1em;
     font-size: 0.75rem;
   }
-
+ 
   iframe 
   {
     width: 700px;         
@@ -184,25 +184,52 @@ th
     margin-bottom: 20px;  
     border: 1px solid #9b87c9; 
     border-radius: 4px;
-  }
+    }
 
   .errMsg.isError 
   {
-  animation: slideDown 0.3s ease;
+    animation: slideDown 0.3s ease;
   }
   
   @keyframes slideDown 
   {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+#strengthBar 
+{
+  width: 90%;
+  height: 6px;
+  background-color: #d0c8e8;
+  border-radius: 4px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+  
+  #strengthFill 
+  {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background-color 0.3s ease;
   }
   
-a:visited
-{
+  #strengthLabel 
+  {
+  font-size: .75rem;
+  font-family: "Georgia", serif;
+  display: block;
+  margin-top: 2px;
+  }
+  
+  a:visited
+  {
   color: blue;
-}
+  }
 
-a:hover
-{
+  a:hover
+  {
   color: purple;
-}
+  }
+  
