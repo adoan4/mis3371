@@ -222,7 +222,9 @@ function validateUserID() {
 }
 
 function validatePassword() {
+  
   const pw = document.getElementById("password").value;
+  updateStrengthMeter(pw);
   const userid = (document.getElementById("userid").value     || "").toLowerCase();
   const firstname = (document.getElementById("firstname").value     || "").toLowerCase();
   const lastname = (document.getElementById("lastname").value     || "").toLowerCase();
@@ -334,7 +336,59 @@ function validateDOB() {
   saveToLocalStorage();
   return true;
 }
- 
+
+function updateStrengthMeter(pw) {
+  let score = 0;
+
+  if (pw.length >= 8)                              score++;
+  if (pw.length >= 12)                             score++;
+  if (/[A-Z]/.test(pw))                           score++;
+  if (/[a-z]/.test(pw))                           score++;
+  if (/[0-9]/.test(pw))                           score++;
+  if (/[!@#$%^&*()\-_+=<>?]/.test(pw))           score++;
+
+  const fill  = document.getElementById("strengthFill");
+  const label = document.getElementById("strengthLabel");
+
+  switch(true) {
+    case (score <= 1):
+      fill.style.width           = "16%";
+      fill.style.backgroundColor = "#cc0000";
+      label.textContent          = "Very Weak";
+      label.style.color          = "#cc0000";
+      break;
+    case (score === 2):
+      fill.style.width           = "33%";
+      fill.style.backgroundColor = "#e65c00";
+      label.textContent          = "Weak";
+      label.style.color          = "#e65c00";
+      break;
+    case (score === 3):
+      fill.style.width           = "50%";
+      fill.style.backgroundColor = "#f0a500";
+      label.textContent          = "Fair";
+      label.style.color          = "#f0a500";
+      break;
+    case (score === 4):
+      fill.style.width           = "66%";
+      fill.style.backgroundColor = "#a3c244";
+      label.textContent          = "Good";
+      label.style.color          = "#a3c244";
+      break;
+    case (score === 5):
+      fill.style.width           = "83%";
+      fill.style.backgroundColor = "#2e8b57";
+      label.textContent          = "Strong";
+      label.style.color          = "#2e8b57";
+      break;
+    case (score >= 6):
+      fill.style.width           = "100%";
+      fill.style.backgroundColor = "#1a7f37";
+      label.textContent          = "Very Strong ✔";
+      label.style.color          = "#1a7f37";
+      break;
+  }
+} 
 function validateSSN() {
   const val = document.getElementById("ssn").value.trim();
   if (!val) {
